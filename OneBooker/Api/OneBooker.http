@@ -1,0 +1,6 @@
+@OneBooker_HostAddress = http://localhost:5276
+
+GET {{OneBooker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
