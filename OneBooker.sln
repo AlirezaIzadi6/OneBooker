@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{B919A877-C61
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{260C1B8D-5A5C-4F39-AC65-C48AA4A5BD12}"
 	ProjectSection(SolutionItems) = preProject
+		..\simba-core\.editorconfig = ..\simba-core\.editorconfig
 		C:\Users\USER\Documents\.gitignore = C:\Users\USER\Documents\.gitignore
 	EndProjectSection
 EndProject

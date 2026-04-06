@@ -12,9 +12,10 @@
 
   <ItemGroup>
     <Folder Include="Modules\Events\" />
-    <Folder Include="Modules\Users\" />
     <Folder Include="Modules\Payments\" />
     <Folder Include="Modules\Reservations\" />
+    <Folder Include="Modules\Users\Application\" />
+    <Folder Include="Modules\Users\Infrastructure\" />
   </ItemGroup>
 
 </Project>
