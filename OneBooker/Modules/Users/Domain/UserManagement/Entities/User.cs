@@ -18,9 +18,24 @@ public class User : BaseEntity<int>
     public string LastName { get; set; }
 
     /// <summary>
+    /// Gets or sets user's username.
+    /// </summary>
+    public string Username { get; set; }
+
+    /// <summary>
+    /// Gets or sets allcap string of user's username.
+    /// </summary>
+    public string NormalizedUsername { get; set; }
+
+    /// <summary>
     /// Gets or sets user's email address.
     /// </summary>
     public string Email { get; set; }
+
+    /// <summary>
+    /// gets or sets allcap string of email address.
+    /// </summary>
+    public string NormalizedEmail { get; set; }
 
     /// <summary>
     ///Gets or sets user's national code.

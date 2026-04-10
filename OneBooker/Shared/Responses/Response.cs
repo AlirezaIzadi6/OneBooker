@@ -4,11 +4,11 @@ public record Response<TResult>
 {
     public bool IsSuccess { get; }
 
-    public string? ErrorMessage { get; }
+    public string ErrorMessage { get; }
 
-    public TResult? Data { get; }
+    public TResult Data { get; }
 
-    private Response(bool isSuccess, string? errorMessage, TResult? data)
+    protected Response(bool isSuccess, string errorMessage, TResult data)
     {
         IsSuccess = isSuccess;
         ErrorMessage = errorMessage;
