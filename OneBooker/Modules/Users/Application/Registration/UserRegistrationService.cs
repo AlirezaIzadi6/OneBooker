@@ -1,7 +1,8 @@
 using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
-using OneBooker.Shared.Responses;
+using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.Shared.Responses.ValidationResponse;
 using System.Globalization;
 
 namespace OneBooker.Modules.Users.Application.Registration;
@@ -16,13 +17,13 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
     /// </summary>
     /// <param name="request"><see cref="RegistrationRequest"/> object containing registration request info.</param>
     /// <returns>true if registration is successful, otherwise error message.</returns>
-    public async Task<Response<bool>> RegisterUser(RegistrationRequest request)
+    public async Task<Response<int>> RegisterUser(RegistrationRequest request)
     {
         ValidationResult uniquenessValidationResult = await CheckUserUniqueness(request);
 
         if (!uniquenessValidationResult.IsValid)
         {
-            return Response<bool>.Fail(uniquenessValidationResult.ErrorMessage);
+            return Response<int>.Fail(uniquenessValidationResult.ErrorMessage);
         }
 
         string hashedPassword = await hashService.Hash(request.Password);
@@ -41,7 +42,7 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
 
         await users.CreateUser(newUser);
 
-        return Response<bool>.Success(true);
+        return Response<int>.Success(newUser.Id);
     }
 
     private async Task<ValidationResult> CheckUserUniqueness(RegistrationRequest request)

@@ -1,4 +1,5 @@
 using OneBooker.Shared.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace OneBooker.Modules.Users.Domain.UserManagement.Entities;
 
@@ -10,21 +11,25 @@ public class User : BaseEntity<int>
     /// <summary>
     /// Gets or sets user's first name.
     /// </summary>
+    [MaxLength(50)]
     public string FirstName { get; set; }
 
     /// <summary>
     /// Gets or sets user's last name.
     /// </summary>
+    [MaxLength(50)]
     public string LastName { get; set; }
 
     /// <summary>
     /// Gets or sets user's username.
     /// </summary>
+    [Required, MinLength(4), MaxLength(32)]
     public string Username { get; set; }
 
     /// <summary>
     /// Gets or sets allcap string of user's username.
     /// </summary>
+    [Required, MinLength(4), MaxLength(32)]
     public string NormalizedUsername { get; set; }
 
     /// <summary>
@@ -50,5 +55,5 @@ public class User : BaseEntity<int>
     /// <summary>
     /// Gets or sets the last <see cref="DateTime"/> user has successfully logged in.
     /// </summary>
-    public DateTime LastLoginDate { get; set; }
+    public DateTime? LastLoginDate { get; set; }
 }

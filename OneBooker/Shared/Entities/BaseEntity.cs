@@ -14,10 +14,10 @@ public abstract class BaseEntity<TKey>
     /// <summary>
     /// Gets or sets the time this record has been created.
     /// </summary>
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     /// <summary>
     /// Getsd or sets the last time this record has updated.
     /// </summary>
-    public DateTime UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }

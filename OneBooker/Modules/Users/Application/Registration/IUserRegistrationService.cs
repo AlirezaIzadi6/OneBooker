@@ -1,8 +1,8 @@
-using OneBooker.Shared.Responses;
+using OneBooker.Shared.Responses.ServiceResponse;
 
 namespace OneBooker.Modules.Users.Application.Registration;
 
 public interface IUserRegistrationService
 {
-    Task<Response<bool>> RegisterUser(RegistrationRequest request);
+    Task<Response<int>> RegisterUser(RegistrationRequest request);
 }

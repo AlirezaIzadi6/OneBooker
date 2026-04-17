@@ -1,12 +1,12 @@
-namespace OneBooker.Shared.Responses;
+namespace OneBooker.Shared.Responses.ValidationResponse;
 
 public class ValidationResult
 {
     public bool IsValid { get; set; }
 
-    public string? ErrorMessage { get; set; }
+    public string ErrorMessage { get; set; }
 
-    private ValidationResult(bool isValid, string? errorMessage)
+    private ValidationResult(bool isValid, string errorMessage)
     {
         IsValid = isValid;
         ErrorMessage = errorMessage;
