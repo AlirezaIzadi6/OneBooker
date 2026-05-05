@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using OneBooker.Api.Configurations.Swagger;
 using OneBooker.Api.Filters;
 using OneBooker.Modules.Users;
 using OneBooker.Modules.Users.Infrastructure.Persistance;
+using OneBooker.Shared;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -12,30 +14,24 @@ builder.Services.AddControllers(
     {
         options.Filters.Add<ResponseModifierFilterAttribute>();
     });
+builder.Services.AddSwaggerServices();
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddSwaggerGen();
+builder.Services.AddUsersModule(builder.Configuration).AddSharedServices();
 
-builder.Services.AddUsersModule(builder.Configuration);
-
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
+app.UseSwaggerServices();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var usersDb = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+    UsersDbContext usersDb = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
     usersDb.Database.Migrate();
 }
 
