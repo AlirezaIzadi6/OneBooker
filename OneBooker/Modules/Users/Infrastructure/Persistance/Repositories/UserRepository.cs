@@ -51,4 +51,10 @@ public class UserRepository(UsersDbContext context) : IUserRepository
         await context.SaveChangesAsync();
         return user.Id;
     }
+
+    public async Task UpdateUser(User user)
+    {
+        context.Users.Entry(user).State = EntityState.Modified;
+        await context.SaveChangesAsync();
+    }
 }

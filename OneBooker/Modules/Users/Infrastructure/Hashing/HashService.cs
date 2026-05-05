@@ -10,4 +10,11 @@ public class HashService(IPasswordHasher<object> passwordHasher) : IPasswordHash
         string result = passwordHasher.HashPassword(null, password);
         return Task.FromResult(result);
     }
+
+    public Task<bool> Verify(string expected, string actual)
+    {
+        bool passwordsMatch = passwordHasher.VerifyHashedPassword(null, expected, actual) ==
+                              PasswordVerificationResult.Success;
+        return Task.FromResult(passwordsMatch);
+    }
 }

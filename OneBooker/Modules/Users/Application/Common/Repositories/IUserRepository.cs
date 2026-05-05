@@ -14,4 +14,5 @@ public interface IUserRepository
     Task<bool> IsNationalCodeDuplicate(string nationalCode);
 
     Task<int> CreateUser(User user);
+    Task UpdateUser(User user);
 }
