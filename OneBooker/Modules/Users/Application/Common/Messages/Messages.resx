@@ -126,4 +126,7 @@
   <data name="UsernameOrPasswordIncorrect" xml:space="preserve">
     <value>Username or password is incorrect.</value>
   </data>
+  <data name="DuplicateItem" xml:space="preserve">
+    <value>This {0} already exists.</value>
+  </data>
 </root>

@@ -5,4 +5,5 @@ public enum Messages
     UsernameOrPasswordIncorrect,
     UserDoesNotExist,
     OldPasswordIsIncorrect,
+    DuplicateItem,
 }

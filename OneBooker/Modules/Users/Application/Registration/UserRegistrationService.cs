@@ -1,8 +1,10 @@
+using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Shared.Responses.ServiceResponse;
 using OneBooker.Shared.Responses.ValidationResponse;
+using OneBooker.Shared.Services.Globalization;
 using System.Globalization;
 
 namespace OneBooker.Modules.Users.Application.Registration;
@@ -10,7 +12,7 @@ namespace OneBooker.Modules.Users.Application.Registration;
 /// <summary>
 /// The service responsible for registerring new users.
 /// </summary>
-public class UserRegistrationService(IUserRepository users, IPasswordHashService hashService) : IUserRegistrationService
+public class UserRegistrationService(IUserRepository users, IPasswordHashService hashService, IGlobalizationService globalizationService) : IUserRegistrationService
 {
     /// <summary>
     /// A very simple implementation of user registration.
@@ -50,21 +52,29 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
         bool isUsernameDuplicate = await users.IsUsernameDuplicate(request.UserName.ToUpper(CultureInfo.InvariantCulture));
         if (isUsernameDuplicate)
         {
-            return ValidationResult.Fail("This username already exists.");
+            return ValidationResult.Fail(GetDuplicationErrorMessage("username"));
         }
 
         bool isEmailDuplicate = await users.IsEmailDuplicate(request.Email.ToUpper(CultureInfo.InvariantCulture));
         if (isEmailDuplicate)
         {
-            return ValidationResult.Fail("This email already exists.");
+            return ValidationResult.Fail(GetDuplicationErrorMessage("email"));
         }
 
         bool isNationalCodeDuplicate = await users.IsNationalCodeDuplicate(request.NationalCode);
         if (isNationalCodeDuplicate)
         {
-            return ValidationResult.Fail("This national code already exists.");
+            return ValidationResult.Fail(GetDuplicationErrorMessage("national code"));
         }
 
         return ValidationResult.Success;
+    }
+
+    private string GetDuplicationErrorMessage(string duplicateField)
+    {
+        return string.Format(
+            CultureInfo.InvariantCulture,
+            globalizationService.Localize(Messages.DuplicateItem),
+            duplicateField);
     }
 }
