@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using OneBooker.Modules.Users.Application.ChangePassword;
 using OneBooker.Modules.Users.Application.Login;
 using OneBooker.Modules.Users.Application.Registration;
 using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
@@ -12,12 +13,12 @@ namespace OneBooker.Api.Controllers.Users;
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-public class UserManagementController(IUserRegistrationService registrationService, IUserLoginService loginService) : ControllerBase
+public class UserManagementController(IUserRegistrationService registrationService, IUserLoginService loginService, IChangePasswordService changePasswordService) : ControllerBase
 {
     /// <summary>
     /// Register a new user.
     /// </summary>
-    /// <param name="request"><see cref="RegistrationRequest"/> containing new user info.</param>
+    /// <param name="request">RegistrationRequest object containing new user info.</param>
     /// <returns>Unique identifier of the new user if created successfully.</returns>
     /// <response code="200">New user created successfully.</response>
     /// <response code="400">Provided information are not valid.</response>
@@ -32,7 +33,7 @@ public class UserManagementController(IUserRegistrationService registrationServi
     /// <summary>
     /// Login with user credentials.
     /// </summary>
-    /// <param name="request"><see cref="LoginRequest"/> object containing user's credentials.</param>
+    /// <param name="request">LoginRequest object containing user's credentials.</param>
     /// <returns>Access token if login is successful, error message otherwise.</returns>
     /// <response code="200">Login was successful.</response>
     /// <response code="401">Login credentials were incorrect.</response>
@@ -42,5 +43,20 @@ public class UserManagementController(IUserRegistrationService registrationServi
     public async Task<ActionResult<Response<ILoginResult>>> LoginUser([FromBody] LoginRequest request)
     {
         return await loginService.LoginAsync(request);
+    }
+
+    /// <summary>
+    /// Update user password.
+    /// </summary>
+    /// <param name="request">ChangePasswordRequest object containing old and new password.</param>
+    /// <returns>A boolean value showing request success.></returns>
+    /// <response code="200">Password updated successfully.</response>
+    /// <response code="400">User does not exist or old password is not correct.</response>
+    [HttpPost("change-password")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Response<bool>>> ChangePassword([FromBody] ChangePasswordRequest request)
+    {
+        return await changePasswordService.ChangePassword(request);
     }
 }
