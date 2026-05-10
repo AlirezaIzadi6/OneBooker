@@ -13,15 +13,22 @@ public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : 
         var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
         options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
-        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+        options.AddSecurityDefinition("bearer", new OpenApiSecurityScheme()
         {
             Name = "Authorization",
-            Type = SecuritySchemeType.ApiKey,
-            Scheme = "Bearer",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
             BearerFormat = "JWT",
             In = ParameterLocation.Header,
-            Description = "Enter your token in this format: Bearer {your token}",
+            Description = "Enter your token in this format: bearer {your token}",
         });
+
+        options.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecuritySchemeReference("bearer", doc), []
+                },
+            });
 
         foreach (var description in provider.ApiVersionDescriptions)
         {
