@@ -4,16 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <BaseOutputPath>D:\Projects\OneBooker\OneBooker\Api</BaseOutputPath>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="Api\Configurations\Swagger\ConfigureSwaggerOptions.cs" />
-    <Compile Include="Api\Configurations\Swagger\RegisterSwaggerServices.cs" />
-    <Compile Include="Api\Controllers\Users\UserManagementController.cs" />
-    <Compile Include="Api\Filters\ResponseModifierFilterAttribute.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
