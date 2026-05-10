@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneBooker.Modules.Users.Application.ChangePassword;
 using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Application.Login;
@@ -33,6 +34,7 @@ public static class RegisterServices
         // Use cases:
         services.AddScoped<IUserRegistrationService, UserRegistrationService>();
         services.AddScoped<IUserLoginService, UserLoginService>();
+        services.AddScoped<IChangePasswordService, ChangePasswordService>();
 
         // Configuration:
         services.Configure<JwtSettings>(config.GetSection(nameof(JwtSettings)));
