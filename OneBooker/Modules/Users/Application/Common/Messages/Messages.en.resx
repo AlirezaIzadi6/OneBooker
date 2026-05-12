@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>Not authorized, Please login.</value>
+  </data>
+  <data name="TokenIsInvalid" xml:space="preserve">
+    <value>Provided token is invalid.</value>
+  </data>
   <data name="OldPasswordIsIncorrect" xml:space="preserve">
     <value>Provided old password is invalid.</value>
   </data>

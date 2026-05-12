@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using OneBooker.Api;
 using OneBooker.Api.Configurations.Swagger;
 using OneBooker.Api.Filters;
+using OneBooker.Api.Middlewares;
 using OneBooker.Modules.Users;
 using OneBooker.Modules.Users.Infrastructure.Persistance;
 using OneBooker.Shared;
@@ -15,6 +17,7 @@ builder.Services.AddControllers(
         options.Filters.Add<ResponseModifierFilterAttribute>();
     });
 builder.Services.AddSwaggerServices();
+builder.Services.AddApiServices();
 
 builder.Services.AddUsersModule(builder.Configuration).AddSharedServices();
 
@@ -25,7 +28,7 @@ WebApplication app = builder.Build();
 app.UseSwaggerServices();
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseMiddleware<AuthMiddleware>();
 
 app.MapControllers();
 
