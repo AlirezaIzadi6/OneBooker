@@ -58,3 +58,6 @@ publish/
 
 # Docker
 docker-compose.override.yml
+
+# Scripts
+*.bat
