@@ -39,4 +39,9 @@ public record Response<TResult> : IResponse<TResult>
     {
         return new Response<TResult>(false, errorMessage, default, ServiceResponse.ErrorType.NotAuthenticated);
     }
+
+    public static Response<TResult> NotFound(string errorMessage)
+    {
+        return new Response<TResult>(false, errorMessage, default, ServiceResponse.ErrorType.NotFound);
+    }
 }

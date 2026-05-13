@@ -8,4 +8,5 @@ public enum Messages
     UserDoesNotExist,
     OldPasswordIsIncorrect,
     DuplicateItem,
+    NotFound,
 }
