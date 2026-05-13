@@ -1,3 +1,4 @@
+using OneBooker.Modules.Users.Domain.UserManagement.Enums;
 using OneBooker.Shared.Entities;
 using System.ComponentModel.DataAnnotations;
 
@@ -56,4 +57,9 @@ public class User : BaseEntity<int>
     /// Gets or sets the last <see cref="DateTime"/> user has successfully logged in.
     /// </summary>
     public DateTime? LastLoginDate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the role of the user.
+    /// </summary>
+    public UserRole Role { get; set; }
 }

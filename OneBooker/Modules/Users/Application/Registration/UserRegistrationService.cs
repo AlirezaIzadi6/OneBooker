@@ -2,6 +2,7 @@ using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
+using OneBooker.Modules.Users.Domain.UserManagement.Enums;
 using OneBooker.Shared.Responses.ServiceResponse;
 using OneBooker.Shared.Responses.ValidationResponse;
 using OneBooker.Shared.Services.Globalization;
@@ -40,6 +41,7 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
             FirstName = request.FirstName,
             LastName = request.LastName,
             NationalCode = request.NationalCode,
+            Role = UserRole.Normal,
         };
 
         await users.CreateUser(newUser);
