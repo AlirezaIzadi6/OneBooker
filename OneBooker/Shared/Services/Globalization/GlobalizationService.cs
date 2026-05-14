@@ -1,8 +1,9 @@
 using Microsoft.Extensions.Localization;
+using OneBooker.Shared.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Shared.Services.Globalization;
 
-public class GlobalizationService(IStringLocalizerFactory localizerFactory) : IGlobalizationService
+public class GlobalizationService(IStringLocalizerFactory localizerFactory) : IGlobalizationService, ISingletonService
 {
     public string Localize<TMessage>(TMessage message)
     {

@@ -10,7 +10,7 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 
-public class JwtManagerService(IOptions<JwtSettings> jwtOptions) : IIdentityManagerService
+public class JwtManagerService(IOptions<JwtSettings> jwtOptions) : IIdentityManagerService, IScopedService
 {
     public async Task<ILoginResult> GenerateLoginResponseAsync(LoginRequest request, User user)
     {

@@ -13,7 +13,7 @@ namespace OneBooker.Modules.Users.Application.Registration;
 /// <summary>
 /// The service responsible for registerring new users.
 /// </summary>
-public class UserRegistrationService(IUserRepository users, IPasswordHashService hashService, IGlobalizationService globalizationService) : IUserRegistrationService
+public class UserRegistrationService(IUserRepository users, IPasswordHashService hashService, IGlobalizationService globalizationService) : IUserRegistrationService, IScopedService
 {
     /// <summary>
     /// A very simple implementation of user registration.

@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace OneBooker.Modules.Users.Infrastructure.Persistance.Repositories;
 
-public class UserRepository(UsersDbContext context) : IUserRepository
+public class UserRepository(UsersDbContext context) : IUserRepository, IScopedService
 {
     public async Task<User> GetByIdAsync(int id)
     {

@@ -6,6 +6,7 @@ using OneBooker.Api.Middlewares;
 using OneBooker.Modules.Users;
 using OneBooker.Modules.Users.Infrastructure.Persistance;
 using OneBooker.Shared;
+using OneBooker.Shared.ServiceRegistration;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,10 @@ builder.Services.AddControllers(
 builder.Services.AddSwaggerServices();
 builder.Services.AddApiServices();
 
-builder.Services.AddUsersModule(builder.Configuration).AddSharedServices();
+builder.Services
+    .RegisterAppServices()
+    .AddUsersModule(builder.Configuration)
+    .AddSharedServices();
 
 WebApplication app = builder.Build();
 
