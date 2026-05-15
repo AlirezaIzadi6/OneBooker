@@ -9,7 +9,7 @@ public static class ServiceRegistration
         services.Scan(
             scan => scan
                 .FromApplicationDependencies(
-                    a => a.FullName.Contains($"{nameof(OneBooker)}.{nameof(OneBooker.Modules)}"))
+                    a => a.FullName.Contains(nameof(OneBooker)))
                 .AddClasses(cls => cls.AssignableTo<ISingletonService>())
                 .AsSelfWithInterfaces()
                 .WithSingletonLifetime()
