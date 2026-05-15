@@ -5,6 +5,7 @@ using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
 using OneBooker.Shared.Responses.ServiceResponse;
 using OneBooker.Shared.Responses.ValidationResponse;
+using OneBooker.Shared.ServiceRegistration.Interfaces;
 using OneBooker.Shared.Services.Globalization;
 using System.Globalization;
 

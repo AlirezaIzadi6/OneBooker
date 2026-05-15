@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
+using OneBooker.Shared.ServiceRegistration.Interfaces;
 using System.Globalization;
 
 namespace OneBooker.Modules.Users.Infrastructure.Persistance.Repositories;

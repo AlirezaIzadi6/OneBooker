@@ -2,6 +2,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OneBooker.Modules.Users.Application.Login;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
+using OneBooker.Shared.ServiceRegistration.Interfaces;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

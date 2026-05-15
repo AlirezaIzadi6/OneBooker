@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using OneBooker.Modules.Users.Application.Common.Services;
+using OneBooker.Shared.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Modules.Users.Infrastructure.Hashing;
 

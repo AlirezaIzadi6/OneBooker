@@ -12,5 +12,6 @@ public interface ICountryRepository
 
     Task<Country> FindByName(string name);
 
+    Task<ICollection<Country>> ListAll();
     Task<bool> IsNameDuplicate(string name);
 }
