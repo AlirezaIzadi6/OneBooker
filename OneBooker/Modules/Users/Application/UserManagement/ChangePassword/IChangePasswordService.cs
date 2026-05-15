@@ -1,6 +1,6 @@
 using OneBooker.Shared.Responses.ServiceResponse;
 
-namespace OneBooker.Modules.Users.Application.ChangePassword;
+namespace OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
 
 public interface IChangePasswordService
 {

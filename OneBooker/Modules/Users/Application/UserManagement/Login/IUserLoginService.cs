@@ -1,6 +1,6 @@
 using OneBooker.Shared.Responses.ServiceResponse;
 
-namespace OneBooker.Modules.Users.Application.Login;
+namespace OneBooker.Modules.Users.Application.UserManagement.Login;
 
 public interface IUserLoginService
 {

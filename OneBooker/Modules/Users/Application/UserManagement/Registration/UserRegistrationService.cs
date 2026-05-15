@@ -9,7 +9,7 @@ using OneBooker.Shared.ServiceRegistration.Interfaces;
 using OneBooker.Shared.Services.Globalization;
 using System.Globalization;
 
-namespace OneBooker.Modules.Users.Application.Registration;
+namespace OneBooker.Modules.Users.Application.UserManagement.Registration;
 
 /// <summary>
 /// The service responsible for registerring new users.
@@ -26,9 +26,7 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
         ValidationResult uniquenessValidationResult = await CheckUserUniqueness(request);
 
         if (!uniquenessValidationResult.IsValid)
-        {
             return Response<int>.Fail(uniquenessValidationResult.ErrorMessage);
-        }
 
         string hashedPassword = await hashService.Hash(request.Password);
 
@@ -54,21 +52,15 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
     {
         bool isUsernameDuplicate = await users.IsUsernameDuplicate(request.UserName.ToUpper(CultureInfo.InvariantCulture));
         if (isUsernameDuplicate)
-        {
             return ValidationResult.Fail(GetDuplicationErrorMessage("username"));
-        }
 
         bool isEmailDuplicate = await users.IsEmailDuplicate(request.Email.ToUpper(CultureInfo.InvariantCulture));
         if (isEmailDuplicate)
-        {
             return ValidationResult.Fail(GetDuplicationErrorMessage("email"));
-        }
 
         bool isNationalCodeDuplicate = await users.IsNationalCodeDuplicate(request.NationalCode);
         if (isNationalCodeDuplicate)
-        {
             return ValidationResult.Fail(GetDuplicationErrorMessage("national code"));
-        }
 
         return ValidationResult.Success;
     }

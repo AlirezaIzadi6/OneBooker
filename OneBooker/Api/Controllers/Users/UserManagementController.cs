@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using OneBooker.Modules.Users.Application.ChangePassword;
-using OneBooker.Modules.Users.Application.Login;
-using OneBooker.Modules.Users.Application.Registration;
+using OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
+using OneBooker.Modules.Users.Application.UserManagement.Login;
+using OneBooker.Modules.Users.Application.UserManagement.Registration;
 using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 using OneBooker.Shared.Responses.ServiceResponse;
 

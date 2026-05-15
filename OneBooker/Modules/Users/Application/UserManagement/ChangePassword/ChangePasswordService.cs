@@ -6,7 +6,7 @@ using OneBooker.Shared.Responses.ServiceResponse;
 using OneBooker.Shared.ServiceRegistration.Interfaces;
 using OneBooker.Shared.Services.Globalization;
 
-namespace OneBooker.Modules.Users.Application.ChangePassword;
+namespace OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
 
 public class ChangePasswordService(IUserRepository users, IGlobalizationService globalizationService, IPasswordHashService hashService) : IChangePasswordService, IScopedService
 {
@@ -15,15 +15,11 @@ public class ChangePasswordService(IUserRepository users, IGlobalizationService 
         User user = await users.GetByUsernameAsync(request.Username);
 
         if (user is null)
-        {
             return Response<bool>.Fail(globalizationService.Localize(Messages.UserDoesNotExist));
-        }
 
         bool isOldPasswordCorrect = await hashService.Verify(user.PasswordHash, request.OldPassword);
         if (!isOldPasswordCorrect)
-        {
             return Response<bool>.Fail(globalizationService.Localize(Messages.OldPasswordIsIncorrect));
-        }
 
         string newHashedPassword = await hashService.Hash(request.NewPassword);
         user.PasswordHash = newHashedPassword;

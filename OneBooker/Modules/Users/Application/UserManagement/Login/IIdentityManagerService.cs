@@ -1,6 +1,6 @@
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 
-namespace OneBooker.Modules.Users.Application.Login;
+namespace OneBooker.Modules.Users.Application.UserManagement.Login;
 
 public interface IIdentityManagerService
 {

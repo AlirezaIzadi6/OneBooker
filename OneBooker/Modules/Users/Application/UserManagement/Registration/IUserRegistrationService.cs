@@ -1,6 +1,6 @@
 using OneBooker.Shared.Responses.ServiceResponse;
 
-namespace OneBooker.Modules.Users.Application.Registration;
+namespace OneBooker.Modules.Users.Application.UserManagement.Registration;
 
 public interface IUserRegistrationService
 {

@@ -1,4 +1,4 @@
-using OneBooker.Modules.Users.Application.Login;
+using OneBooker.Modules.Users.Application.UserManagement.Login;
 
 namespace OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OneBooker.Modules.Users.Application.Registration;
+namespace OneBooker.Modules.Users.Application.UserManagement.Registration;
 
 public record RegistrationRequest
 {

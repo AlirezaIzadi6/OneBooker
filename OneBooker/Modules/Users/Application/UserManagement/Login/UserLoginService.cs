@@ -6,7 +6,7 @@ using OneBooker.Shared.Responses.ServiceResponse;
 using OneBooker.Shared.ServiceRegistration.Interfaces;
 using OneBooker.Shared.Services.Globalization;
 
-namespace OneBooker.Modules.Users.Application.Login;
+namespace OneBooker.Modules.Users.Application.UserManagement.Login;
 
 public class UserLoginService(IUserRepository users, IPasswordHashService hashService, IIdentityManagerService identityService, IGlobalizationService globalizationService) : IUserLoginService, IScopedService
 {
@@ -15,9 +15,7 @@ public class UserLoginService(IUserRepository users, IPasswordHashService hashSe
         User user = await users.GetByUsernameAsync(request.UserName);
         bool areCredentialsCorrect = user is not null && await hashService.Verify(user.PasswordHash, request.Password);
         if (!areCredentialsCorrect)
-        {
             return Response<ILoginResult>.NotAuthenticated(globalizationService.Localize(Messages.UsernameOrPasswordIncorrect));
-        }
 
         ILoginResult loginResult = await identityService.GenerateLoginResponseAsync(request, user);
 

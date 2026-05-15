@@ -1,4 +1,4 @@
-namespace OneBooker.Modules.Users.Application.ChangePassword;
+namespace OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
 
 public record ChangePasswordRequest
 {
