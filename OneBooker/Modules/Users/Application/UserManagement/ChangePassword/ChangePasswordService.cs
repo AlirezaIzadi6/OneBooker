@@ -1,3 +1,4 @@
+using OneBooker.Modules.Users.Application.Common.Exceptions;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
@@ -12,10 +13,10 @@ public class ChangePasswordService(IUserRepository users, IGlobalizationService 
 {
     public async Task<Response<bool>> ChangePassword(ChangePasswordRequest request)
     {
-        User user = await users.GetByUsernameAsync(request.Username);
+        User user = await users.GetByIdAsync(request.UserId);
 
         if (user is null)
-            return Response<bool>.Fail(globalizationService.Localize(Messages.UserDoesNotExist));
+            throw new AuthorizedUserNotFoundException();
 
         bool isOldPasswordCorrect = await hashService.Verify(user.PasswordHash, request.OldPassword);
         if (!isOldPasswordCorrect)

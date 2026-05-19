@@ -1,12 +1,14 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using OneBooker.Api;
+using Microsoft.IdentityModel.Tokens;
 using OneBooker.Api.Configurations.Swagger;
 using OneBooker.Api.Filters;
-using OneBooker.Api.Middlewares;
 using OneBooker.Modules.Users;
+using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 using OneBooker.Modules.Users.Infrastructure.Persistance;
 using OneBooker.Shared;
 using OneBooker.Shared.ServiceRegistration;
+using System.Text;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,26 @@ builder.Services.AddControllers(
         options.Filters.Add<ResponseModifierFilterAttribute>();
     });
 builder.Services.AddSwaggerServices();
-builder.Services.AddApiServices();
+
+JwtSettings authSettings = builder.Configuration.GetSection(nameof(JwtSettings)).Get<JwtSettings>();
+builder.Services.AddAuthentication(
+        options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+    .AddJwtBearer(
+        options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.SecretKey)),
+            };
+        });
 
 builder.Services
     .RegisterAppServices()
@@ -32,7 +53,8 @@ WebApplication app = builder.Build();
 app.UseSwaggerServices();
 app.UseHttpsRedirection();
 
-app.UseMiddleware<AuthMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
