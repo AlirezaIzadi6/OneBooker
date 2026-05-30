@@ -4,6 +4,7 @@ using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
 using OneBooker.Modules.Users.Application.UserManagement.Login;
 using OneBooker.Modules.Users.Application.UserManagement.Registration;
+using OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
 using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 using OneBooker.Shared.Responses.ServiceResponse;
 
@@ -15,7 +16,7 @@ namespace OneBooker.Api.Controllers.Users;
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-public class UserManagementController(IUserRegistrationService registrationService, IUserLoginService loginService, IChangePasswordService changePasswordService) : BaseController
+public class UserManagementController(IUserRegistrationService registrationService, IUserLoginService loginService, IChangePasswordService changePasswordService, IResetPasswordRequestService resetPasswordRequestService) : BaseController
 {
     /// <summary>
     /// Register a new user.
@@ -62,5 +63,20 @@ public class UserManagementController(IUserRegistrationService registrationServi
     {
         request.UserId = UserId.Value;
         return await changePasswordService.ChangePassword(request);
+    }
+
+    /// <summary>
+    /// Request password reset.
+    /// </summary>
+    /// <param name="request">ResetPasswordRequest object containing user email address.</param>
+    /// <returns>A boolean value showing request success.></returns>
+    /// <response code="200">Reset password link emailed successfully.</response>
+    /// <response code="404">Provided email does not exist.</response>
+    [HttpPost("request-reset-password")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Response<bool>>> RequestResetPassword([FromBody] ResetPasswordRequest request)
+    {
+        return await resetPasswordRequestService.RequestReset(request);
     }
 }

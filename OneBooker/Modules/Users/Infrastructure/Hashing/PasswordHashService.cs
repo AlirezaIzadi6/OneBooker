@@ -4,7 +4,7 @@ using OneBooker.Shared.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Modules.Users.Infrastructure.Hashing;
 
-public class HashService(IPasswordHasher<object> passwordHasher) : IPasswordHashService, IScopedService
+public class PasswordHashService(IPasswordHasher<object> passwordHasher) : IPasswordHashService, IScopedService
 {
     public Task<string> Hash(string password)
     {

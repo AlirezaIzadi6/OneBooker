@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
 
 namespace OneBooker.Api.Controllers.Base;
@@ -10,7 +9,7 @@ public class BaseController : ControllerBase
     {
         get
         {
-            var userIdClaim = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
             return int.TryParse(userIdClaim, out var userId) ? userId : null;
         }
     }

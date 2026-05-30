@@ -44,7 +44,7 @@ builder.Services.AddAuthentication(
 builder.Services
     .RegisterAppServices()
     .AddUsersModule(builder.Configuration)
-    .AddSharedServices();
+    .AddSharedServices(builder.Configuration);
 
 WebApplication app = builder.Build();
 

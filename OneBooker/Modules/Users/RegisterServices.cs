@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
 using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 using OneBooker.Modules.Users.Infrastructure.Persistance;
 
@@ -18,6 +19,7 @@ public static class RegisterServices
 
         // Configuration:
         services.Configure<JwtSettings>(config.GetSection(nameof(JwtSettings)));
+        services.Configure<ResetPasswordSettings>(config.GetSection(nameof(ResetPasswordSettings)));
 
         return services;
     }
