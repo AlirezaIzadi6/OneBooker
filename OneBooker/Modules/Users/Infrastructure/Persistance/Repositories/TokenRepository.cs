@@ -14,7 +14,8 @@ public class TokenRepository(UsersDbContext context) : ITokenRepository, IScoped
 
     public async Task<long> Create(ResetPasswordToken token)
     {
-        await context.Tokens.AddAsync(token);
+        context.Tokens.Add(token);
+        await context.SaveChangesAsync();
         return token.Id;
     }
 

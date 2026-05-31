@@ -9,4 +9,5 @@ public enum Messages
     OldPasswordIsIncorrect,
     DuplicateItem,
     NotFound,
+    InvalidInput,
 }

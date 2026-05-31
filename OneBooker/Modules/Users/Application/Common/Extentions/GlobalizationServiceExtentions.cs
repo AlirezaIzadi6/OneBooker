@@ -12,4 +12,12 @@ public static class GlobalizationServiceExtentions
             globalizationService.Localize(Messages.Messages.NotFound),
             item);
     }
+
+    public static string InvalidInputError(this IGlobalizationService globalizationService, string item)
+    {
+        return string.Format(
+            CultureInfo.InvariantCulture,
+            globalizationService.Localize(Messages.Messages.InvalidInput),
+            item);
+    }
 }

@@ -138,4 +138,7 @@
   <data name="NotFound" xml:space="preserve">
     <value>{0} not found.</value>
   </data>
+  <data name="InvalidInput" xml:space="preserve">
+    <value>{0} is invalid.</value>
+  </data>
 </root>

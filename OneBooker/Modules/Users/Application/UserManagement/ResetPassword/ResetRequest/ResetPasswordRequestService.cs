@@ -33,6 +33,7 @@ public class ResetPasswordRequestService(IUserRepository users, ITokenRepository
             ExpirationTime = DateTime.UtcNow.AddMinutes(settings.ExpirationMinutes),
         };
 
+        // TODO: Add a job for removing expired tokens.
         await tokens.Create(newToken);
 
         string resetPasswordUrl = string.Format(

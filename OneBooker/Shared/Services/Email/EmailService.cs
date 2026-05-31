@@ -15,6 +15,7 @@ public class EmailService(IOptions<EmailSettings> emailConfig, ILogger<EmailServ
 
         try
         {
+            // TODO: handle failures in case of sudden shutdown or application crash.
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync(settings.SmtpServer, settings.Port, SecureSocketOptions.StartTls);
             await smtp.AuthenticateAsync(settings.Username, settings.Password);
