@@ -1,3 +1,4 @@
+using OneBooker.Modules.Users.Application.AddressManagement.Countries.Dtos;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Domain.Addresses.Entities;
@@ -10,7 +11,7 @@ namespace OneBooker.Modules.Users.Application.AddressManagement.Countries.Update
 
 public class UpdateCountryService(ICountryRepository countries, IGlobalizationService globalizationService) : IUpdateCountryService, IScopedService
 {
-    public async Task<Response<bool>> UpdateCountry(int countryId, string name, bool isActive)
+    public async Task<Response<bool>> UpdateCountry(int countryId, CountryDto countryDto)
     {
         Country country = await countries.FindById(countryId);
         if (country is null)
@@ -22,7 +23,7 @@ public class UpdateCountryService(ICountryRepository countries, IGlobalizationSe
             return Response<bool>.NotFound(errorMessage);
         }
 
-        if (await NameIsDuplicate(name, country))
+        if (await NameIsDuplicate(countryDto.Name, country))
         {
             string errorMessage = string.Format(
                 CultureInfo.InvariantCulture,
@@ -31,8 +32,8 @@ public class UpdateCountryService(ICountryRepository countries, IGlobalizationSe
             return Response<bool>.Fail(errorMessage);
         }
 
-        country.Name = name;
-        country.IsActive = isActive;
+        country.Name = countryDto.Name;
+        country.IsActive = countryDto.IsActive;
         await countries.Update(country);
 
         return Response<bool>.Success(true);

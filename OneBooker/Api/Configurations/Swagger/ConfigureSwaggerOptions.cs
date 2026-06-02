@@ -20,7 +20,7 @@ public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : 
             Scheme = "bearer",
             BearerFormat = "JWT",
             In = ParameterLocation.Header,
-            Description = "Enter your token in this format: bearer {your token}",
+            Description = "Enter your token (No need for \"Bearer \" prefix):",
         });
 
         options.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
