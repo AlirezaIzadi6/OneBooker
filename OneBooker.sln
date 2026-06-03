@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Misc", "Misc", "{260C1B8D-5
 		C:\Users\USER\Documents\.gitignore = C:\Users\USER\Documents\.gitignore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{88BFDFE8-BBE6-4BC2-B325-D46E6D41D45C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneBooker.Tests", "tests\OneBooker.Tests\OneBooker.Tests.csproj", "{B1B061B7-CE63-4B6F-977F-01BB47CCE3DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +27,16 @@ Global
 		{B07F7CE3-F270-469B-B523-CD27A6C5BB1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B07F7CE3-F270-469B-B523-CD27A6C5BB1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B07F7CE3-F270-469B-B523-CD27A6C5BB1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1B061B7-CE63-4B6F-977F-01BB47CCE3DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1B061B7-CE63-4B6F-977F-01BB47CCE3DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1B061B7-CE63-4B6F-977F-01BB47CCE3DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1B061B7-CE63-4B6F-977F-01BB47CCE3DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B07F7CE3-F270-469B-B523-CD27A6C5BB1C} = {B919A877-C610-4F9F-8F61-B4A32E5BC69C}
+		{B1B061B7-CE63-4B6F-977F-01BB47CCE3DC} = {88BFDFE8-BBE6-4BC2-B325-D46E6D41D45C}
 	EndGlobalSection
 EndGlobal
