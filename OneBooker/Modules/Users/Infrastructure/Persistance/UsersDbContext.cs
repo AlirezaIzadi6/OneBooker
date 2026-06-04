@@ -10,6 +10,7 @@ public class UsersDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<ResetPasswordToken> Tokens { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Province> Provinces { get; set; }
+    public DbSet<City> Cities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
