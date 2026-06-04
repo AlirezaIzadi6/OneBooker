@@ -33,7 +33,7 @@ public static class RegisterAuthServices
             options =>
             {
                 options.AddPolicy(
-                    "OnlyAdmin",
+                    "OnlyAdmin", // TODO: Create a constant for policy names.
                     policy =>
                     {
                         policy.RequireClaim("UserName", "admin"); // TODO: Add a more reliable policy.
