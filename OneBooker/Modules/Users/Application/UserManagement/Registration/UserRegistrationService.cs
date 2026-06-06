@@ -43,9 +43,9 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
             Role = UserRole.Normal,
         };
 
-        await users.CreateUser(newUser);
+        int id = await users.CreateUser(newUser);
 
-        return Response<int>.Success(newUser.Id);
+        return Response<int>.Success(id);
     }
 
     private async Task<ValidationResult> CheckUserUniqueness(RegistrationRequest request)
