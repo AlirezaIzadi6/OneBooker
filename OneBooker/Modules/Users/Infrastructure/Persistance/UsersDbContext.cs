@@ -15,6 +15,7 @@ public class UsersDbContext(DbContextOptions options) : DbContext(options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Users");
+        modelBuilder.SeedGeography();
         base.OnModelCreating(modelBuilder);
     }
 }
