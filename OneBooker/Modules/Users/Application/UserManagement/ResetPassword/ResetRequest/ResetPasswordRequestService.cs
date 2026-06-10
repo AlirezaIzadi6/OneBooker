@@ -8,11 +8,14 @@ using OneBooker.Shared.ServiceRegistration.Interfaces;
 using OneBooker.Shared.Services.Email;
 using OneBooker.Shared.Services.Globalization;
 using System.Globalization;
+using System.Text;
 
 namespace OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
 
 public class ResetPasswordRequestService(IUserRepository users, ITokenRepository tokens, IGlobalizationService globalizationService, ITokenGenerator tokenGenerator, IHashGenerator hashGenerator, IEmailService emailService, IOptions<ResetPasswordSettings> resetPasswordConfig) : IResetPasswordRequestService, IScopedService
 {
+    private static readonly CompositeFormat EmailBodyFormat = CompositeFormat.Parse(EmailConstants.Body);
+
     public async Task<Response<bool>> RequestReset(ResetPasswordRequest request)
     {
         User user = await users.GetByEmailAsync(request.Email);
@@ -42,7 +45,7 @@ public class ResetPasswordRequestService(IUserRepository users, ITokenRepository
             token);
         string body = string.Format(
             CultureInfo.InvariantCulture,
-            EmailConstants.Body,
+            EmailBodyFormat,
             user.FirstName,
             settings.ExpirationMinutes,
             resetPasswordUrl);
@@ -53,7 +56,10 @@ public class ResetPasswordRequestService(IUserRepository users, ITokenRepository
             Body = body,
         };
 
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+        // Disable warning because not awaiting this call is intentional and in order not to block the main request.
         emailService.SendAsync(emailRequest);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
         return Response<bool>.Success(true);
     }

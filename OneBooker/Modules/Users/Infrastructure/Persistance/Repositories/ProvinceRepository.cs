@@ -10,19 +10,20 @@ public class ProvinceRepository(UsersDbContext context) : IProvinceRepository, I
     public async Task<int> Create(Province province)
     {
         await context.Provinces.AddAsync(province);
+        await context.SaveChangesAsync();
         return province.Id;
     }
 
-    public Task Update(Province province)
+    public async Task Update(Province province)
     {
         context.Provinces.Update(province);
-        return Task.CompletedTask;
+        await context.SaveChangesAsync();
     }
 
-    public Task Delete(Province province)
+    public async Task Delete(Province province)
     {
         context.Provinces.Remove(province);
-        return Task.CompletedTask;
+        await context.SaveChangesAsync();
     }
 
     public async Task<Province> FindById(int id)

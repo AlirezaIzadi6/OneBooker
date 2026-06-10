@@ -18,7 +18,7 @@ public class TokenGenerator : ITokenGenerator, ITransientService
 
         byte[] randomBytes = RandomNumberGenerator.GetBytes(length);
 
-        var tokenChars = new char[length];
+        char[] tokenChars = new char[length];
 
         for (int i = 0; i < length; i++)
         {

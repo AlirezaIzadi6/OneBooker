@@ -13,7 +13,7 @@ public class UpdateProvinceService(IProvinceRepository provinces, IGlobalization
 {
     public async Task<Response<bool>> UpdateProvince(int provinceId, ProvinceDto province)
     {
-        var existingProvince = await provinces.FindById(provinceId);
+        Province existingProvince = await provinces.FindById(provinceId);
         if (existingProvince == null)
         {
             string errorMessage = string.Format(

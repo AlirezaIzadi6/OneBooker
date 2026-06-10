@@ -14,9 +14,8 @@ public class HashGenerator : IHashGenerator, ITransientService
             return string.Empty;
         }
 
-        using var sha256 = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(original);
-        var hashBytes = sha256.ComputeHash(bytes);
+        byte[] bytes = Encoding.UTF8.GetBytes(original);
+        byte[] hashBytes = SHA256.HashData(bytes);
 
         return Convert.ToHexString(hashBytes).ToLowerInvariant();
     }

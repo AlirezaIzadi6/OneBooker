@@ -13,7 +13,10 @@ namespace OneBooker.Modules.Users.Infrastructure.IdentityManagement;
 
 public class JwtManagerService(IOptions<JwtSettings> jwtOptions) : IIdentityManagerService, IScopedService
 {
+    // Disable CS1998 warning because "async" keyword is needed here to return a derived type of ILoginResult.
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     public async Task<ILoginResult> GenerateLoginResponseAsync(LoginRequest request, User user)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
         JwtSettings settings = jwtOptions.Value;
         string token = GenerateStringToken(user, settings);
@@ -30,7 +33,8 @@ public class JwtManagerService(IOptions<JwtSettings> jwtOptions) : IIdentityMana
                 JwtRegisteredClaimNames.Sub,
                 user.Id.ToString(CultureInfo.InvariantCulture)),
             new(JwtRegisteredClaimNames.Email, user.Email),
-            new("Username", user.Username)
+            new("Username", user.Username),
+            new(ClaimTypes.Role, user.Role.ToString())
         ];
 
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.SecretKey));

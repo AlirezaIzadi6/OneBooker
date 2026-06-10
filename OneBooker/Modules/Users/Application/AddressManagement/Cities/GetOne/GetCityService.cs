@@ -13,7 +13,7 @@ public class GetCityService(ICityRepository cities, IGlobalizationService global
 {
     public async Task<Response<CityDto>> GetCityById(int cityId)
     {
-        var city = await cities.FindById(cityId);
+        City city = await cities.FindById(cityId);
         if (city == null)
         {
             string errorMessage = string.Format(

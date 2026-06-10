@@ -12,7 +12,7 @@ public class DeleteCityService(ICityRepository cities, IGlobalizationService glo
 {
     public async Task<Response<bool>> DeleteCity(int cityId)
     {
-        var city = await cities.FindById(cityId);
+        City city = await cities.FindById(cityId);
         if (city == null)
         {
             string errorMessage = string.Format(

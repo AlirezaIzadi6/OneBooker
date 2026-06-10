@@ -10,19 +10,20 @@ public class CityRepository(UsersDbContext context) : ICityRepository, IScopedSe
     public async Task<int> Create(City city)
     {
         await context.Cities.AddAsync(city);
+        await context.SaveChangesAsync();
         return city.Id;
     }
 
-    public Task Update(City city)
+    public async Task Update(City city)
     {
         context.Cities.Update(city);
-        return Task.CompletedTask;
+        await context.SaveChangesAsync();
     }
 
-    public Task Delete(City city)
+    public async Task Delete(City city)
     {
         context.Cities.Remove(city);
-        return Task.CompletedTask;
+        await context.SaveChangesAsync();
     }
 
     public async Task<City> FindById(int id)

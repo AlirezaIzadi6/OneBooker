@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
@@ -55,6 +56,7 @@ public class UserManagementController(IUserRegistrationService registrationServi
     /// <returns>A boolean value showing request success.></returns>
     /// <response code="200">Password updated successfully.</response>
     /// <response code="400">User does not exist or old password is not correct.</response>
+    [Authorize]
     [HttpPost("change-password")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -5,5 +5,5 @@ namespace OneBooker.Modules.Users.Application.AddressManagement.Countries.Update
 
 public interface IUpdateCountryService
 {
-    Task<Response<bool>> UpdateCountry(int countryId, CountryDto country);
+    Task<Response<bool>> UpdateCountry(int countryId, CountryDto countryDto);
 }

@@ -11,7 +11,7 @@ namespace OneBooker.Modules.Users.Application.AddressManagement.Countries.Create
 
 public class CreateCountryService(ICountryRepository countries, IGlobalizationService globalizationService) : ICreateCountryService, IScopedService
 {
-    public async Task<Response<int>> Create(CountryDto country)
+    public async Task<Response<int>> CreateCountry(CountryDto country)
     {
         bool isNameDuplicate = await countries.IsNameDuplicate(country.Name);
         if (isNameDuplicate)
@@ -33,6 +33,4 @@ public class CreateCountryService(ICountryRepository countries, IGlobalizationSe
 
         return Response<int>.Success(createdId);
     }
-
-    public Task<Response<int>> CreateCountry(CountryDto country) => Create(country);
 }

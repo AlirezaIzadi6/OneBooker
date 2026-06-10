@@ -10,19 +10,20 @@ public class CountryRepository(UsersDbContext context) : ICountryRepository, ISc
     public async Task<int> Create(Country country)
     {
         await context.Countries.AddAsync(country);
+        await context.SaveChangesAsync();
         return country.Id;
     }
 
-    public Task Update(Country country)
+    public async Task Update(Country country)
     {
         context.Countries.Update(country);
-        return Task.CompletedTask;
+        await context.SaveChangesAsync();
     }
 
-    public Task Delete(Country country)
+    public async Task Delete(Country country)
     {
         context.Countries.Remove(country);
-        return Task.CompletedTask;
+        await context.SaveChangesAsync();
     }
 
     public async Task<Country> FindById(int id)

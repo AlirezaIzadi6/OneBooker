@@ -22,7 +22,7 @@ builder.Services
     .AddAuthServices(builder.Configuration);
 
 builder.Services
-    .RegisterAppServices()
+    .RegisterMarkedServices()
     .AddUsersModule(builder.Configuration)
     .AddSharedServices(builder.Configuration);
 

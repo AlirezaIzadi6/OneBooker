@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using OneBooker.Modules.Users.Domain.UserManagement.Enums;
 using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
+using System.Security.Claims;
 using System.Text;
 
 namespace OneBooker.Api.Configurations.Auth;
@@ -26,19 +28,16 @@ public static class RegisterAuthServices
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.SecretKey)),
+                        RoleClaimType = ClaimTypes.Role
                     };
                 });
 
-        services.AddAuthorization(
-            options =>
-            {
-                options.AddPolicy(
-                    "OnlyAdmin", // TODO: Create a constant for policy names.
-                    policy =>
-                    {
-                        policy.RequireClaim("UserName", "admin"); // TODO: Add a more reliable policy.
-                    });
-            });
+        services.AddAuthorizationBuilder()
+            .AddPolicy(AuthConstants.AdminPolicy,
+                policy =>
+                {
+                    policy.RequireRole(UserRole.Admin.ToString());
+                });
 
         return services;
     }

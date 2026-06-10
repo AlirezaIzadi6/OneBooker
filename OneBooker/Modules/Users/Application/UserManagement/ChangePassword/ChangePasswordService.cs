@@ -15,8 +15,7 @@ public class ChangePasswordService(IUserRepository users, IGlobalizationService 
     {
         User user = await users.GetByIdAsync(request.UserId);
 
-        if (user is null)
-            throw new AuthorizedUserNotFoundException();
+        _ = user ?? throw new AuthorizedUserNotFoundException();
 
         bool isOldPasswordCorrect = await hashService.Verify(user.PasswordHash, request.OldPassword);
         if (!isOldPasswordCorrect)

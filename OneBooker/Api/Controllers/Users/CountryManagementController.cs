@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OneBooker.Api.Configurations.Auth;
 using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.AddressManagement.Countries.Dtos;
 using OneBooker.Modules.Users.InternalApis.AddressManagement.Interfaces;
@@ -13,7 +14,7 @@ namespace OneBooker.Api.Controllers.Users;
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-[Authorize(policy: "OnlyAdmin")]
+[Authorize(policy: AuthConstants.AdminPolicy)]
 public class CountryManagementController(ICountryManagementService countryService) : BaseController
 {
     /// <summary>

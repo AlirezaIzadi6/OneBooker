@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OneBooker.Modules.Users.Domain.Addresses.Entities;
 
-namespace OneBooker.Modules.Users.Infrastructure.Persistance;
+namespace OneBooker.Modules.Users.Infrastructure.Persistance.SeedData;
 
 public static class GeographySeed
 {

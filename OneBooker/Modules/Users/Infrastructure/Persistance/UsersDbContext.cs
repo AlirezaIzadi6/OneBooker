@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OneBooker.Modules.Users.Domain.Addresses.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
+using OneBooker.Modules.Users.Infrastructure.Persistance.SeedData;
 
 namespace OneBooker.Modules.Users.Infrastructure.Persistance;
 
