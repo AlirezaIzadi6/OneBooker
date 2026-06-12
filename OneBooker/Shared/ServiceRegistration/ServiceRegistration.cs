@@ -8,16 +8,18 @@ public static class ServiceRegistration
     {
         services.Scan(
             scan => scan
-                .FromApplicationDependencies(
-                    a => a.FullName.Contains(nameof(OneBooker)))
+                .FromApplicationDependencies(a => a.FullName.Contains(nameof(OneBooker)))
+
                 // Singleton
                 .AddClasses(cls => cls.AssignableTo<ISingletonService>())
                 .AsSelfWithInterfaces()
                 .WithSingletonLifetime()
+
                 // Scoped
                 .AddClasses(cls => cls.AssignableTo<IScopedService>())
                 .AsSelfWithInterfaces()
                 .WithScopedLifetime()
+
                 // Transient
                 .AddClasses(cls => cls.AssignableTo<ITransientService>())
                 .AsSelfWithInterfaces()

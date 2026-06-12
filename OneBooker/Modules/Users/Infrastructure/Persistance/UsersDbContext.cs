@@ -8,6 +8,7 @@ namespace OneBooker.Modules.Users.Infrastructure.Persistance;
 public class UsersDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Customer> Customers { get; set; }
     public DbSet<ResetPasswordToken> Tokens { get; set; }
     public DbSet<Country> Countries { get; set; }
     public DbSet<Province> Provinces { get; set; }
