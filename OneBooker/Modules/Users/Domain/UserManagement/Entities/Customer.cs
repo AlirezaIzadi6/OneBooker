@@ -9,4 +9,6 @@ public class Customer : BaseEntity<int>
     public string PhoneNumber { get; set; }
 
     public int AddressId { get; set; }
+
+    public int UserId { get; set; }
 }
