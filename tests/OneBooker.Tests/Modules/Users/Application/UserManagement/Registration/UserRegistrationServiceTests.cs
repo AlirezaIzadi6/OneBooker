@@ -6,7 +6,9 @@ using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Application.UserManagement.Registration;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
+using OneBooker.Shared.Responses.ServiceResponse;
 using OneBooker.Shared.Services.Globalization;
+using System.Globalization;
 
 namespace OneBooker.Tests.Modules.Users.Application.UserManagement.Registration;
 
@@ -34,7 +36,7 @@ public class UserRegistrationServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        var result = await _service.RegisterUser(request);
+        Response<int>? result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -51,7 +53,7 @@ public class UserRegistrationServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        var result = await _service.RegisterUser(request);
+        Response<int>? result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -69,7 +71,7 @@ public class UserRegistrationServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        var result = await _service.RegisterUser(request);
+        Response<int>? result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -80,14 +82,14 @@ public class UserRegistrationServiceTests
     public async Task RegisterUser_WhenDataIsValid_ShouldReturnSuccess()
     {
         // Arrange
-        var request = new RegistrationRequest 
-        { 
-            UserName = "newuser", 
-            Email = "new@test.com", 
-            NationalCode = "0987654321", 
+        var request = new RegistrationRequest
+        {
+            UserName = "newuser",
+            Email = "new@test.com",
+            NationalCode = "0987654321",
             Password = "SecurePassword123",
             FirstName = "John",
-            LastName = "Doe"
+            LastName = "Doe",
         };
         int expectedId = 123;
         _userRepoMock.Setup(r => r.IsUsernameDuplicate(It.IsAny<string>())).ReturnsAsync(false);
@@ -97,16 +99,16 @@ public class UserRegistrationServiceTests
         _userRepoMock.Setup(r => r.CreateUser(It.IsAny<User>())).ReturnsAsync(expectedId);
 
         // Act
-        var result = await _service.RegisterUser(request);
+        Response<int>? result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Data.Should().Be(expectedId);
-        _userRepoMock.Verify(r => r.CreateUser(It.Is<User>(u => 
-            u.Username == request.UserName && 
-            u.NormalizedUsername == request.UserName.ToUpper(System.Globalization.CultureInfo.InvariantCulture) &&
+        _userRepoMock.Verify(r => r.CreateUser(It.Is<User>(u =>
+            u.Username == request.UserName &&
+            u.NormalizedUsername == request.UserName.ToUpper(CultureInfo.InvariantCulture) &&
             u.Email == request.Email &&
-            u.NormalizedEmail == request.Email.ToUpper(System.Globalization.CultureInfo.InvariantCulture) &&
+            u.NormalizedEmail == request.Email.ToUpper(CultureInfo.InvariantCulture) &&
             u.PasswordHash == "hashed_pass" &&
             u.FirstName == request.FirstName &&
             u.LastName == request.LastName &&

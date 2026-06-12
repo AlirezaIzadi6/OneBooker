@@ -48,7 +48,7 @@ public class UpdateCountryServiceTests
         int countryId = 1;
         var countryDto = new CountryDto { Name = "ExistingName", IsActive = true };
         var existingCountry = new Country { Id = countryId, Name = "OldName", IsActive = true };
-        
+
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
         _repoMock.Setup(r => r.IsNameDuplicate(countryDto.Name)).ReturnsAsync(true);
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
@@ -69,7 +69,7 @@ public class UpdateCountryServiceTests
         int countryId = 1;
         var countryDto = new CountryDto { Name = "NewName", IsActive = false };
         var existingCountry = new Country { Id = countryId, Name = "OldName", IsActive = true };
-        
+
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
         _repoMock.Setup(r => r.IsNameDuplicate(countryDto.Name)).ReturnsAsync(false);
 
@@ -90,7 +90,7 @@ public class UpdateCountryServiceTests
         int countryId = 1;
         var countryDto = new CountryDto { Name = "SameName", IsActive = false };
         var existingCountry = new Country { Id = countryId, Name = "SameName", IsActive = true };
-        
+
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
 
         // Act

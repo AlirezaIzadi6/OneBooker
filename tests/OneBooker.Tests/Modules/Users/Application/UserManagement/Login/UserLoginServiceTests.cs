@@ -69,7 +69,7 @@ public class UserLoginServiceTests
         var request = new LoginRequest { UserName = "user", Password = "correctpassword" };
         var user = new User { Username = "user", PasswordHash = "correct_hash" };
         var mockLoginResult = new Mock<ILoginResult>();
-        
+
         _userRepoMock.Setup(r => r.GetByUsernameAsync(request.UserName)).ReturnsAsync(user);
         _hashServiceMock.Setup(s => s.Verify(user.PasswordHash, request.Password)).ReturnsAsync(true);
         _identityServiceMock.Setup(s => s.GenerateLoginResponseAsync(request, user)).ReturnsAsync(mockLoginResult.Object);
