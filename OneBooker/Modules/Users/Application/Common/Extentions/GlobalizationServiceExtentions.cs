@@ -1,4 +1,4 @@
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Services.Globalization;
 using System.Globalization;
 
 namespace OneBooker.Modules.Users.Application.Common.Extentions;

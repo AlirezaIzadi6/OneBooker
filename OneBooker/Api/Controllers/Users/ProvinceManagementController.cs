@@ -4,21 +4,21 @@ using OneBooker.Api.Configurations.Auth;
 using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.AddressManagement.Provinces.Dtos;
 using OneBooker.Modules.Users.InternalApis.AddressManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 
 namespace OneBooker.Api.Controllers.Users;
 
 /// <summary>
-/// Manage provinces.
+///     Manage provinces.
 /// </summary>
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-[Authorize(policy: AuthConstants.AdminPolicy)]
+[Authorize(AuthConstants.AdminPolicy)]
 public class ProvinceManagementController(IProvinceManagementService provinceService) : BaseController
 {
     /// <summary>
-    /// Add a new province.
+    ///     Add a new province.
     /// </summary>
     /// <param name="province">ProvinceDto object containing new province info.</param>
     /// <returns>Unique identifier of the new province if created successfully.</returns>
@@ -33,7 +33,7 @@ public class ProvinceManagementController(IProvinceManagementService provinceSer
     }
 
     /// <summary>
-    /// Get a list of provinces for a specific country.
+    ///     Get a list of provinces for a specific country.
     /// </summary>
     /// <param name="countryId">Unique identifier of the country.</param>
     /// <returns>A list of ProvinceDto objects.</returns>
@@ -46,7 +46,7 @@ public class ProvinceManagementController(IProvinceManagementService provinceSer
     }
 
     /// <summary>
-    /// Get a province by its unique identifier.
+    ///     Get a province by its unique identifier.
     /// </summary>
     /// <param name="id">Unique identifier of the province.</param>
     /// <returns>ProvinceDto object if found.</returns>
@@ -61,7 +61,7 @@ public class ProvinceManagementController(IProvinceManagementService provinceSer
     }
 
     /// <summary>
-    /// Update an existing province.
+    ///     Update an existing province.
     /// </summary>
     /// <param name="id">Unique identifier of the province to update.</param>
     /// <param name="province">ProvinceDto object containing updated info.</param>
@@ -79,7 +79,7 @@ public class ProvinceManagementController(IProvinceManagementService provinceSer
     }
 
     /// <summary>
-    /// Delete a province.
+    ///     Delete a province.
     /// </summary>
     /// <param name="id">Unique identifier of the province to delete.</param>
     /// <returns>A boolean value indicating success.</returns>

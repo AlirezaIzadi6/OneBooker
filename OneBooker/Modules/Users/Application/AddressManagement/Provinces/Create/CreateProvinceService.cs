@@ -2,14 +2,15 @@ using OneBooker.Modules.Users.Application.AddressManagement.Provinces.Dtos;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Domain.Addresses.Entities;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Services.Globalization;
 using System.Globalization;
 
 namespace OneBooker.Modules.Users.Application.AddressManagement.Provinces.Create;
 
-public class CreateProvinceService(IProvinceRepository provinces, IGlobalizationService globalizationService) : ICreateProvinceService, IScopedService
+public class CreateProvinceService(IProvinceRepository provinces, IGlobalizationService globalizationService)
+    : ICreateProvinceService, IScopedService
 {
     public async Task<Response<int>> CreateProvince(ProvinceDto province)
     {

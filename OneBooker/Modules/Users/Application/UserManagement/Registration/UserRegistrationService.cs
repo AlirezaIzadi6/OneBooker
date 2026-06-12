@@ -3,30 +3,35 @@ using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.Responses.ValidationResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ValidationResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Services.Globalization;
 using System.Globalization;
 
 namespace OneBooker.Modules.Users.Application.UserManagement.Registration;
 
 /// <summary>
-/// The service responsible for registerring new users.
+///     The service responsible for registerring new users.
 /// </summary>
-public class UserRegistrationService(IUserRepository users, IPasswordHashService hashService, IGlobalizationService globalizationService) : IUserRegistrationService, IScopedService
+public class UserRegistrationService(
+    IUserRepository users,
+    IPasswordHashService hashService,
+    IGlobalizationService globalizationService) : IUserRegistrationService, IScopedService
 {
     /// <summary>
-    /// A very simple implementation of user registration.
+    ///     A very simple implementation of user registration.
     /// </summary>
-    /// <param name="request"><see cref="RegistrationRequest"/> object containing registration request info.</param>
+    /// <param name="request"><see cref="RegistrationRequest" /> object containing registration request info.</param>
     /// <returns>true if registration is successful, otherwise error message.</returns>
     public async Task<Response<int>> RegisterUser(RegistrationRequest request)
     {
         ValidationResult uniquenessValidationResult = await CheckUserUniqueness(request);
 
         if (!uniquenessValidationResult.IsValid)
+        {
             return Response<int>.Fail(uniquenessValidationResult.ErrorMessage);
+        }
 
         string hashedPassword = await hashService.Hash(request.Password);
 
@@ -50,17 +55,24 @@ public class UserRegistrationService(IUserRepository users, IPasswordHashService
 
     private async Task<ValidationResult> CheckUserUniqueness(RegistrationRequest request)
     {
-        bool isUsernameDuplicate = await users.IsUsernameDuplicate(request.UserName.ToUpper(CultureInfo.InvariantCulture));
+        bool isUsernameDuplicate =
+            await users.IsUsernameDuplicate(request.UserName.ToUpper(CultureInfo.InvariantCulture));
         if (isUsernameDuplicate)
+        {
             return ValidationResult.Fail(GetDuplicationErrorMessage("username"));
+        }
 
         bool isEmailDuplicate = await users.IsEmailDuplicate(request.Email.ToUpper(CultureInfo.InvariantCulture));
         if (isEmailDuplicate)
+        {
             return ValidationResult.Fail(GetDuplicationErrorMessage("email"));
+        }
 
         bool isNationalCodeDuplicate = await users.IsNationalCodeDuplicate(request.NationalCode);
         if (isNationalCodeDuplicate)
+        {
             return ValidationResult.Fail(GetDuplicationErrorMessage("national code"));
+        }
 
         return ValidationResult.Success;
     }

@@ -1,17 +1,7 @@
-namespace OneBooker.Shared.Responses.ServiceResponse;
+namespace OneBooker.SharedKernel.Responses.ServiceResponse;
 
 public record Response<TResult> : IResponse<TResult>
 {
-    public bool IsSuccess { get; }
-
-    public string ErrorMessage { get; }
-
-    public ErrorType? ErrorType { get; }
-
-    public TResult Data { get; }
-
-    object IResponse.Data => Data;
-
     protected Response(bool isSuccess, string errorMessage, TResult data, ErrorType? errorType = null)
     {
         IsSuccess = isSuccess;
@@ -19,6 +9,16 @@ public record Response<TResult> : IResponse<TResult>
         ErrorType = errorType;
         Data = data;
     }
+
+    public ErrorType? ErrorType { get; }
+
+    public bool IsSuccess { get; }
+
+    public string ErrorMessage { get; }
+
+    public TResult Data { get; }
+
+    object IResponse.Data => Data;
 
     public static Response<TResult> Success(TResult data)
     {

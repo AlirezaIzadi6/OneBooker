@@ -3,8 +3,8 @@ using OneBooker.Modules.Users.Application.Customers.Dtos;
 using OneBooker.Modules.Users.Application.Customers.GetOne;
 using OneBooker.Modules.Users.Application.Customers.Update;
 using OneBooker.Modules.Users.InternalApis.UserManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Modules.Users.InternalApis.UserManagement.Concrete;
 

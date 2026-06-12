@@ -1,4 +1,4 @@
-namespace OneBooker.Shared.Services.Email;
+namespace OneBooker.SharedKernel.Services.Email;
 
 public interface IEmailService
 {

@@ -5,14 +5,15 @@ using OneBooker.Modules.Users.Application.AddressManagement.Cities.Dtos;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Domain.Addresses.Entities;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Services.Globalization;
 
 namespace OneBooker.Tests.Modules.Users.Application.AddressManagement.Cities.Create;
 
 public class CreateCityServiceTests
 {
-    private readonly Mock<ICityRepository> _repoMock;
     private readonly Mock<IGlobalizationService> _globalizationMock;
+    private readonly Mock<ICityRepository> _repoMock;
     private readonly CreateCityService _service;
 
     public CreateCityServiceTests()
@@ -26,12 +27,17 @@ public class CreateCityServiceTests
     public async Task CreateCity_WhenNameIsDuplicateInProvince_ShouldReturnFail()
     {
         // Arrange
-        var cityDto = new CityDto { Name = "Toronto", ProvinceId = 1, IsActive = true };
+        var cityDto = new CityDto
+        {
+            Name = "Toronto",
+            ProvinceId = 1,
+            IsActive = true,
+        };
         _repoMock.Setup(r => r.IsNameDuplicate(cityDto.Name, cityDto.ProvinceId)).ReturnsAsync(true);
         _globalizationMock.Setup(g => g.Localize(It.IsAny<Messages>())).Returns("Duplicate {0}");
 
         // Act
-        var result = await _service.CreateCity(cityDto);
+        Response<int>? result = await _service.CreateCity(cityDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -43,12 +49,17 @@ public class CreateCityServiceTests
     public async Task CreateCity_WhenDataIsValid_ShouldReturnSuccess()
     {
         // Arrange
-        var cityDto = new CityDto { Name = "Vancouver", ProvinceId = 2, IsActive = true };
+        var cityDto = new CityDto
+        {
+            Name = "Vancouver",
+            ProvinceId = 2,
+            IsActive = true,
+        };
         _repoMock.Setup(r => r.IsNameDuplicate(cityDto.Name, cityDto.ProvinceId)).ReturnsAsync(false);
         _repoMock.Setup(r => r.Create(It.IsAny<City>())).ReturnsAsync(10);
 
         // Act
-        var result = await _service.CreateCity(cityDto);
+        Response<int>? result = await _service.CreateCity(cityDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

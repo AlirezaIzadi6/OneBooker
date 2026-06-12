@@ -3,16 +3,23 @@ using OneBooker.Modules.Users.Application.Common.Extentions;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
-using OneBooker.Shared.Services.Email;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Services.Email;
+using OneBooker.SharedKernel.Services.Globalization;
 using System.Globalization;
 using System.Text;
 
 namespace OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
 
-public class ResetPasswordRequestService(IUserRepository users, ITokenRepository tokens, IGlobalizationService globalizationService, ITokenGenerator tokenGenerator, IHashGenerator hashGenerator, IEmailService emailService, IOptions<ResetPasswordSettings> resetPasswordConfig) : IResetPasswordRequestService, IScopedService
+public class ResetPasswordRequestService(
+    IUserRepository users,
+    ITokenRepository tokens,
+    IGlobalizationService globalizationService,
+    ITokenGenerator tokenGenerator,
+    IHashGenerator hashGenerator,
+    IEmailService emailService,
+    IOptions<ResetPasswordSettings> resetPasswordConfig) : IResetPasswordRequestService, IScopedService
 {
     private static readonly CompositeFormat EmailBodyFormat = CompositeFormat.Parse(EmailConstants.Body);
 
@@ -49,7 +56,7 @@ public class ResetPasswordRequestService(IUserRepository users, ITokenRepository
             user.FirstName,
             settings.ExpirationMinutes,
             resetPasswordUrl);
-        SendEmailRequest emailRequest = new SendEmailRequest
+        var emailRequest = new SendEmailRequest
         {
             Recipients = [request.Email],
             subject = EmailConstants.Subject,
@@ -57,6 +64,7 @@ public class ResetPasswordRequestService(IUserRepository users, ITokenRepository
         };
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
         // Disable warning because not awaiting this call is intentional and in order not to block the main request.
         emailService.SendAsync(emailRequest);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed

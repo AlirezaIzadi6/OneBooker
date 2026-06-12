@@ -1,5 +1,5 @@
 using OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 using System.Security.Cryptography;
 
 namespace OneBooker.Modules.Users.Infrastructure.RandomGenerator;

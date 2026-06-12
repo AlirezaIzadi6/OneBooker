@@ -1,4 +1,4 @@
-namespace OneBooker.Shared.Responses.ServiceResponse;
+namespace OneBooker.SharedKernel.Responses.ServiceResponse;
 
 public enum ErrorType
 {

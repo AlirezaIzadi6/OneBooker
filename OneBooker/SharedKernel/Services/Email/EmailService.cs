@@ -2,11 +2,12 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
-namespace OneBooker.Shared.Services.Email;
+namespace OneBooker.SharedKernel.Services.Email;
 
-public class EmailService(IOptions<EmailSettings> emailConfig, ILogger<EmailService> logger) : IEmailService, ISingletonService
+public class EmailService(IOptions<EmailSettings> emailConfig, ILogger<EmailService> logger)
+    : IEmailService, ISingletonService
 {
     public async Task SendAsync(SendEmailRequest request)
     {
@@ -34,12 +35,12 @@ public class EmailService(IOptions<EmailSettings> emailConfig, ILogger<EmailServ
         var email = new MimeMessage();
         email.From.Add(new MailboxAddress(settings.SenderName, settings.SenderEmail));
 
-        var recipientMails = request.Recipients.Select(MailboxAddress.Parse);
+        IEnumerable<MailboxAddress> recipientMails = request.Recipients.Select(MailboxAddress.Parse);
         email.To.AddRange(recipientMails);
         email.Subject = request.subject;
         var bodyBuilder = new BodyBuilder
         {
-            HtmlBody = request.Body
+            HtmlBody = request.Body,
         };
         email.Body = bodyBuilder.ToMessageBody();
         return email;

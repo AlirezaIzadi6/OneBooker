@@ -1,4 +1,4 @@
-using OneBooker.Shared.Exceptions;
+using OneBooker.SharedKernel.Exceptions;
 
 namespace OneBooker.Modules.Users.Application.Common.Exceptions;
 

@@ -3,13 +3,16 @@ using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Services;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Services.Globalization;
 
 namespace OneBooker.Modules.Users.Application.UserManagement.ChangePassword;
 
-public class ChangePasswordService(IUserRepository users, IGlobalizationService globalizationService, IPasswordHashService hashService) : IChangePasswordService, IScopedService
+public class ChangePasswordService(
+    IUserRepository users,
+    IGlobalizationService globalizationService,
+    IPasswordHashService hashService) : IChangePasswordService, IScopedService
 {
     public async Task<Response<bool>> ChangePassword(ChangePasswordRequest request)
     {
@@ -19,7 +22,9 @@ public class ChangePasswordService(IUserRepository users, IGlobalizationService 
 
         bool isOldPasswordCorrect = await hashService.Verify(user.PasswordHash, request.OldPassword);
         if (!isOldPasswordCorrect)
+        {
             return Response<bool>.Fail(globalizationService.Localize(Messages.OldPasswordIsIncorrect));
+        }
 
         string newHashedPassword = await hashService.Hash(request.NewPassword);
         user.PasswordHash = newHashedPassword;

@@ -1,6 +1,6 @@
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
-namespace OneBooker.Shared.ServiceRegistration;
+namespace OneBooker.SharedKernel.ServiceRegistration;
 
 public static class ServiceRegistration
 {

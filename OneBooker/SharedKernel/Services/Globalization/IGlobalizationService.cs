@@ -1,4 +1,4 @@
-namespace OneBooker.Shared.Services.Globalization;
+namespace OneBooker.SharedKernel.Services.Globalization;
 
 public interface IGlobalizationService
 {

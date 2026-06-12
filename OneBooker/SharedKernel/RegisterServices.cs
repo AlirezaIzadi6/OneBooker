@@ -1,8 +1,8 @@
 using Mapster;
-using OneBooker.Shared.Services.Email;
+using OneBooker.SharedKernel.Services.Email;
 using System.Reflection;
 
-namespace OneBooker.Shared;
+namespace OneBooker.SharedKernel;
 
 public static class RegisterServices
 {

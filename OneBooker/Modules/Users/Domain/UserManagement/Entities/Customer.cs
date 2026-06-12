@@ -1,4 +1,4 @@
-using OneBooker.Shared.Entities;
+using OneBooker.SharedKernel.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace OneBooker.Modules.Users.Domain.UserManagement.Entities;

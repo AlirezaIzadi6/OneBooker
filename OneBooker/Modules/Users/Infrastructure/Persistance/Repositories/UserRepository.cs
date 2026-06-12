@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Modules.Users.Infrastructure.Persistance.Repositories;
 
@@ -14,12 +14,14 @@ public class UserRepository(UsersDbContext context) : IUserRepository, IScopedSe
 
     public async Task<User> GetByUsernameAsync(string username)
     {
-        return await context.Users.FirstOrDefaultAsync(u => u.NormalizedUsername.Equals(username, StringComparison.OrdinalIgnoreCase));
+        return await context.Users.FirstOrDefaultAsync(
+            u => u.NormalizedUsername.Equals(username, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<User> GetByEmailAsync(string email)
     {
-        return await context.Users.FirstOrDefaultAsync(u => u.NormalizedEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
+        return await context.Users.FirstOrDefaultAsync(
+            u => u.NormalizedEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<User> GetByNationalCodeAsync(string nationalCode)
@@ -35,14 +37,12 @@ public class UserRepository(UsersDbContext context) : IUserRepository, IScopedSe
 
     public async Task<bool> IsEmailDuplicate(string email)
     {
-        return await context.Users.AnyAsync(
-            u => u.NormalizedEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
+        return await context.Users.AnyAsync(u => u.NormalizedEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<bool> IsNationalCodeDuplicate(string nationalCode)
     {
-        return await context.Users.AnyAsync(
-            u => u.NationalCode == nationalCode);
+        return await context.Users.AnyAsync(u => u.NationalCode == nationalCode);
     }
 
     public async Task<int> CreateUser(User user)

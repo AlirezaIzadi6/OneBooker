@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace OneBooker.Shared.Services.Email;
+namespace OneBooker.SharedKernel.Services.Email;
 
 public record SendEmailRequest
 {

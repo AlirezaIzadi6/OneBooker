@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 using System.Text.Json.Serialization;
 
 namespace OneBooker.Api.Filters;
@@ -17,5 +17,9 @@ public class ResponseModifierFilterAttribute : ResultFilterAttribute
     }
 }
 
-public record OkResult([property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] object Data, [property: JsonPropertyOrder(-1)] string Message = "Ok");
+public record OkResult(
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    object Data,
+    [property: JsonPropertyOrder(-1)] string Message = "Ok");
+
 public record ErrorResult(string Message);

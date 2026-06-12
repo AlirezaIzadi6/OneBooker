@@ -1,5 +1,5 @@
 using OneBooker.Modules.Users.Application.AddressManagement.Provinces.Dtos;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 
 namespace OneBooker.Modules.Users.Application.AddressManagement.Provinces.List;
 

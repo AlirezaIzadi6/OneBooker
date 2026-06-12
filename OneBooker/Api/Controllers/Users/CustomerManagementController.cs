@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.Customers.Dtos;
 using OneBooker.Modules.Users.InternalApis.UserManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 
 namespace OneBooker.Api.Controllers.Users;
 
 /// <summary>
-/// Manage customers.
+///     Manage customers.
 /// </summary>
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
@@ -17,7 +17,7 @@ namespace OneBooker.Api.Controllers.Users;
 public class CustomerManagementController(ICustomerManagementService customerService) : BaseController
 {
     /// <summary>
-    /// Add a new customer.
+    ///     Add a new customer.
     /// </summary>
     /// <param name="customer">CustomerDto object containing new customer info.</param>
     /// <returns>Unique identifier of the new customer if created successfully.</returns>
@@ -34,7 +34,7 @@ public class CustomerManagementController(ICustomerManagementService customerSer
     }
 
     /// <summary>
-    /// Get a customer by its unique identifier.
+    ///     Get a customer by its unique identifier.
     /// </summary>
     /// <param name="id">Unique identifier of the customer.</param>
     /// <returns>CustomerDto object if found.</returns>
@@ -51,7 +51,7 @@ public class CustomerManagementController(ICustomerManagementService customerSer
     }
 
     /// <summary>
-    /// Get a customer by their user identifier.
+    ///     Get a customer by their user identifier.
     /// </summary>
     /// <param name="userId">Unique identifier of the user.</param>
     /// <returns>CustomerDto object if found.</returns>
@@ -68,7 +68,7 @@ public class CustomerManagementController(ICustomerManagementService customerSer
     }
 
     /// <summary>
-    /// Update an existing customer.
+    ///     Update an existing customer.
     /// </summary>
     /// <param name="id">Unique identifier of the customer to update.</param>
     /// <param name="customer">CustomerDto object containing updated info.</param>

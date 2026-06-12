@@ -7,20 +7,25 @@ using OneBooker.Modules.Users.Application.UserManagement.Registration;
 using OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
 using OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetSubmission;
 using OneBooker.Modules.Users.Infrastructure.IdentityManagement;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 
 namespace OneBooker.Api.Controllers.Users;
 
 /// <summary>
-/// Manage system users.
+///     Manage system users.
 /// </summary>
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-public class UserManagementController(IUserRegistrationService registrationService, IUserLoginService loginService, IChangePasswordService changePasswordService, IResetPasswordRequestService resetPasswordRequestService, IResetPasswordSubmissionService resetPasswordSubmissionService) : BaseController
+public class UserManagementController(
+    IUserRegistrationService registrationService,
+    IUserLoginService loginService,
+    IChangePasswordService changePasswordService,
+    IResetPasswordRequestService resetPasswordRequestService,
+    IResetPasswordSubmissionService resetPasswordSubmissionService) : BaseController
 {
     /// <summary>
-    /// Register a new user.
+    ///     Register a new user.
     /// </summary>
     /// <param name="request">RegistrationRequest object containing new user info.</param>
     /// <returns>Unique identifier of the new user if created successfully.</returns>
@@ -35,7 +40,7 @@ public class UserManagementController(IUserRegistrationService registrationServi
     }
 
     /// <summary>
-    /// Login with user credentials.
+    ///     Login with user credentials.
     /// </summary>
     /// <param name="request">LoginRequest object containing user's credentials.</param>
     /// <returns>Access token if login is successful, error message otherwise.</returns>
@@ -50,7 +55,7 @@ public class UserManagementController(IUserRegistrationService registrationServi
     }
 
     /// <summary>
-    /// Update user password.
+    ///     Update user password.
     /// </summary>
     /// <param name="request">ChangePasswordRequest object containing old and new password.</param>
     /// <returns>A boolean value showing request success.></returns>
@@ -67,7 +72,7 @@ public class UserManagementController(IUserRegistrationService registrationServi
     }
 
     /// <summary>
-    /// Request password reset.
+    ///     Request password reset.
     /// </summary>
     /// <param name="request">ResetPasswordRequest object containing user email address.</param>
     /// <returns>A boolean value showing request success.></returns>
@@ -82,7 +87,7 @@ public class UserManagementController(IUserRegistrationService registrationServi
     }
 
     /// <summary>
-    /// Submit reset password.
+    ///     Submit reset password.
     /// </summary>
     /// <param name="request">ResetPasswordSubmissionRequest object containing reset request info.</param>
     /// <returns>true if operation is successful, otherwise false.</returns>
@@ -91,7 +96,8 @@ public class UserManagementController(IUserRegistrationService registrationServi
     [HttpPost("reset-password")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Response<bool>>> SubmitResetPasswordRequest([FromBody] ResetPasswordSubmissionRequest request)
+    public async Task<ActionResult<Response<bool>>> SubmitResetPasswordRequest(
+        [FromBody] ResetPasswordSubmissionRequest request)
     {
         return await resetPasswordSubmissionService.SubmitResetRequest(request);
     }

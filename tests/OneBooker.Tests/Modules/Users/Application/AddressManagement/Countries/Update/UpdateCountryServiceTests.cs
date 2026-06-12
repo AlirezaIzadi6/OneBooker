@@ -5,15 +5,15 @@ using OneBooker.Modules.Users.Application.AddressManagement.Countries.Update;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Domain.Addresses.Entities;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Services.Globalization;
 
 namespace OneBooker.Tests.Modules.Users.Application.AddressManagement.Countries.Update;
 
 public class UpdateCountryServiceTests
 {
-    private readonly Mock<ICountryRepository> _repoMock;
     private readonly Mock<IGlobalizationService> _globalizationMock;
+    private readonly Mock<ICountryRepository> _repoMock;
     private readonly UpdateCountryService _service;
 
     public UpdateCountryServiceTests()
@@ -28,12 +28,16 @@ public class UpdateCountryServiceTests
     {
         // Arrange
         int countryId = 1;
-        var countryDto = new CountryDto { Name = "Updated", IsActive = true };
+        var countryDto = new CountryDto
+        {
+            Name = "Updated",
+            IsActive = true,
+        };
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync((Country)null);
         _globalizationMock.Setup(g => g.Localize(Messages.NotFound)).Returns("{0} not found");
 
         // Act
-        var result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -46,15 +50,24 @@ public class UpdateCountryServiceTests
     {
         // Arrange
         int countryId = 1;
-        var countryDto = new CountryDto { Name = "ExistingName", IsActive = true };
-        var existingCountry = new Country { Id = countryId, Name = "OldName", IsActive = true };
+        var countryDto = new CountryDto
+        {
+            Name = "ExistingName",
+            IsActive = true,
+        };
+        var existingCountry = new Country
+        {
+            Id = countryId,
+            Name = "OldName",
+            IsActive = true,
+        };
 
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
         _repoMock.Setup(r => r.IsNameDuplicate(countryDto.Name)).ReturnsAsync(true);
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        var result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -67,14 +80,23 @@ public class UpdateCountryServiceTests
     {
         // Arrange
         int countryId = 1;
-        var countryDto = new CountryDto { Name = "NewName", IsActive = false };
-        var existingCountry = new Country { Id = countryId, Name = "OldName", IsActive = true };
+        var countryDto = new CountryDto
+        {
+            Name = "NewName",
+            IsActive = false,
+        };
+        var existingCountry = new Country
+        {
+            Id = countryId,
+            Name = "OldName",
+            IsActive = true,
+        };
 
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
         _repoMock.Setup(r => r.IsNameDuplicate(countryDto.Name)).ReturnsAsync(false);
 
         // Act
-        var result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -88,13 +110,22 @@ public class UpdateCountryServiceTests
     {
         // Arrange
         int countryId = 1;
-        var countryDto = new CountryDto { Name = "SameName", IsActive = false };
-        var existingCountry = new Country { Id = countryId, Name = "SameName", IsActive = true };
+        var countryDto = new CountryDto
+        {
+            Name = "SameName",
+            IsActive = false,
+        };
+        var existingCountry = new Country
+        {
+            Id = countryId,
+            Name = "SameName",
+            IsActive = true,
+        };
 
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
 
         // Act
-        var result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

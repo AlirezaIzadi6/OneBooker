@@ -6,32 +6,41 @@ using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Application.UserManagement.Registration;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.Services.Globalization;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Services.Globalization;
 using System.Globalization;
 
 namespace OneBooker.Tests.Modules.Users.Application.UserManagement.Registration;
 
 public class UserRegistrationServiceTests
 {
-    private readonly Mock<IUserRepository> _userRepoMock;
-    private readonly Mock<IPasswordHashService> _hashServiceMock;
     private readonly Mock<IGlobalizationService> _globalizationMock;
+    private readonly Mock<IPasswordHashService> _hashServiceMock;
     private readonly UserRegistrationService _service;
+    private readonly Mock<IUserRepository> _userRepoMock;
 
     public UserRegistrationServiceTests()
     {
         _userRepoMock = new Mock<IUserRepository>();
         _hashServiceMock = new Mock<IPasswordHashService>();
         _globalizationMock = new Mock<IGlobalizationService>();
-        _service = new UserRegistrationService(_userRepoMock.Object, _hashServiceMock.Object, _globalizationMock.Object);
+        _service = new UserRegistrationService(
+            _userRepoMock.Object,
+            _hashServiceMock.Object,
+            _globalizationMock.Object);
     }
 
     [Fact]
     public async Task RegisterUser_WhenUsernameIsDuplicate_ShouldReturnFail()
     {
         // Arrange
-        var request = new RegistrationRequest { UserName = "TestUser", Email = "test@test.com", NationalCode = "1234567890", Password = "Password123" };
+        var request = new RegistrationRequest
+        {
+            UserName = "TestUser",
+            Email = "test@test.com",
+            NationalCode = "1234567890",
+            Password = "Password123",
+        };
         _userRepoMock.Setup(r => r.IsUsernameDuplicate("TESTUSER")).ReturnsAsync(true);
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
@@ -47,7 +56,13 @@ public class UserRegistrationServiceTests
     public async Task RegisterUser_WhenEmailIsDuplicate_ShouldReturnFail()
     {
         // Arrange
-        var request = new RegistrationRequest { UserName = "testuser", Email = "Test@Test.com", NationalCode = "1234567890", Password = "Password123" };
+        var request = new RegistrationRequest
+        {
+            UserName = "testuser",
+            Email = "Test@Test.com",
+            NationalCode = "1234567890",
+            Password = "Password123",
+        };
         _userRepoMock.Setup(r => r.IsUsernameDuplicate(It.IsAny<string>())).ReturnsAsync(false);
         _userRepoMock.Setup(r => r.IsEmailDuplicate("TEST@TEST.COM")).ReturnsAsync(true);
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
@@ -64,7 +79,13 @@ public class UserRegistrationServiceTests
     public async Task RegisterUser_WhenNationalCodeIsDuplicate_ShouldReturnFail()
     {
         // Arrange
-        var request = new RegistrationRequest { UserName = "testuser", Email = "test@test.com", NationalCode = "1234567890", Password = "Password123" };
+        var request = new RegistrationRequest
+        {
+            UserName = "testuser",
+            Email = "test@test.com",
+            NationalCode = "1234567890",
+            Password = "Password123",
+        };
         _userRepoMock.Setup(r => r.IsUsernameDuplicate(It.IsAny<string>())).ReturnsAsync(false);
         _userRepoMock.Setup(r => r.IsEmailDuplicate(It.IsAny<string>())).ReturnsAsync(false);
         _userRepoMock.Setup(r => r.IsNationalCodeDuplicate(request.NationalCode)).ReturnsAsync(true);
@@ -104,16 +125,19 @@ public class UserRegistrationServiceTests
         // Assert
         result.IsSuccess.Should().BeTrue();
         result.Data.Should().Be(expectedId);
-        _userRepoMock.Verify(r => r.CreateUser(It.Is<User>(u =>
-            u.Username == request.UserName &&
-            u.NormalizedUsername == request.UserName.ToUpper(CultureInfo.InvariantCulture) &&
-            u.Email == request.Email &&
-            u.NormalizedEmail == request.Email.ToUpper(CultureInfo.InvariantCulture) &&
-            u.PasswordHash == "hashed_pass" &&
-            u.FirstName == request.FirstName &&
-            u.LastName == request.LastName &&
-            u.NationalCode == request.NationalCode &&
-            u.Role == UserRole.Normal
-        )), Times.Once);
+        _userRepoMock.Verify(
+            r => r.CreateUser(
+                It.Is<User>(
+                    u =>
+                        u.Username == request.UserName &&
+                        u.NormalizedUsername == request.UserName.ToUpper(CultureInfo.InvariantCulture) &&
+                        u.Email == request.Email &&
+                        u.NormalizedEmail == request.Email.ToUpper(CultureInfo.InvariantCulture) &&
+                        u.PasswordHash == "hashed_pass" &&
+                        u.FirstName == request.FirstName &&
+                        u.LastName == request.LastName &&
+                        u.NationalCode == request.NationalCode &&
+                        u.Role == UserRole.Normal)),
+            Times.Once);
     }
 }

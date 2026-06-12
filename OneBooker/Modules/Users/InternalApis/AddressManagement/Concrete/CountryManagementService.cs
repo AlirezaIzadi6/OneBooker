@@ -5,12 +5,17 @@ using OneBooker.Modules.Users.Application.AddressManagement.Countries.GetOne;
 using OneBooker.Modules.Users.Application.AddressManagement.Countries.List;
 using OneBooker.Modules.Users.Application.AddressManagement.Countries.Update;
 using OneBooker.Modules.Users.InternalApis.AddressManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Modules.Users.InternalApis.AddressManagement.Concrete;
 
-public class CountryManagementService(ICreateCountryService createService, IUpdateCountryService updateService, IDeleteCountryService deleteService, IGetCountryService getService, IListCountryService listService) : ICountryManagementService, IScopedService
+public class CountryManagementService(
+    ICreateCountryService createService,
+    IUpdateCountryService updateService,
+    IDeleteCountryService deleteService,
+    IGetCountryService getService,
+    IListCountryService listService) : ICountryManagementService, IScopedService
 {
     public async Task<Response<int>> Create(CountryDto country)
     {

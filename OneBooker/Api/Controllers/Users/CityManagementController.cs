@@ -4,21 +4,21 @@ using OneBooker.Api.Configurations.Auth;
 using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.AddressManagement.Cities.Dtos;
 using OneBooker.Modules.Users.InternalApis.AddressManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 
 namespace OneBooker.Api.Controllers.Users;
 
 /// <summary>
-/// Manage cities.
+///     Manage cities.
 /// </summary>
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-[Authorize(policy: AuthConstants.AdminPolicy)]
+[Authorize(AuthConstants.AdminPolicy)]
 public class CityManagementController(ICityManagementService cityService) : BaseController
 {
     /// <summary>
-    /// Add a new city.
+    ///     Add a new city.
     /// </summary>
     /// <param name="city">CityDto object containing new city info.</param>
     /// <returns>Unique identifier of the new city if created successfully.</returns>
@@ -33,7 +33,7 @@ public class CityManagementController(ICityManagementService cityService) : Base
     }
 
     /// <summary>
-    /// Get a list of cities for a specific province.
+    ///     Get a list of cities for a specific province.
     /// </summary>
     /// <param name="provinceId">Unique identifier of the province.</param>
     /// <returns>A list of CityDto objects.</returns>
@@ -46,7 +46,7 @@ public class CityManagementController(ICityManagementService cityService) : Base
     }
 
     /// <summary>
-    /// Get a city by its unique identifier.
+    ///     Get a city by its unique identifier.
     /// </summary>
     /// <param name="id">Unique identifier of the city.</param>
     /// <returns>CityDto object if found.</returns>
@@ -61,7 +61,7 @@ public class CityManagementController(ICityManagementService cityService) : Base
     }
 
     /// <summary>
-    /// Update an existing city.
+    ///     Update an existing city.
     /// </summary>
     /// <param name="id">Unique identifier of the city to update.</param>
     /// <param name="city">CityDto object containing updated info.</param>
@@ -79,7 +79,7 @@ public class CityManagementController(ICityManagementService cityService) : Base
     }
 
     /// <summary>
-    /// Delete a city.
+    ///     Delete a city.
     /// </summary>
     /// <param name="id">Unique identifier of the city to delete.</param>
     /// <returns>A boolean value indicating success.</returns>

@@ -1,4 +1,4 @@
-using OneBooker.Shared.Entities;
+using OneBooker.SharedKernel.Entities;
 
 namespace OneBooker.Modules.Users.Domain.Addresses.Entities;
 

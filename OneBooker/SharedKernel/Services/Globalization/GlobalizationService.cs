@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Localization;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
-namespace OneBooker.Shared.Services.Globalization;
+namespace OneBooker.SharedKernel.Services.Globalization;
 
 public class GlobalizationService(IStringLocalizerFactory localizerFactory) : IGlobalizationService, ISingletonService
 {

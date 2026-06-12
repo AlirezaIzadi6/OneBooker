@@ -5,8 +5,8 @@ using OneBooker.Modules.Users.Application.AddressManagement.Provinces.GetOne;
 using OneBooker.Modules.Users.Application.AddressManagement.Provinces.List;
 using OneBooker.Modules.Users.Application.AddressManagement.Provinces.Update;
 using OneBooker.Modules.Users.InternalApis.AddressManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
-using OneBooker.Shared.ServiceRegistration.Interfaces;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
+using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
 namespace OneBooker.Modules.Users.InternalApis.AddressManagement.Concrete;
 

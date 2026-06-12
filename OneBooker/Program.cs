@@ -4,8 +4,8 @@ using OneBooker.Api.Configurations.Swagger;
 using OneBooker.Api.Filters;
 using OneBooker.Modules.Users;
 using OneBooker.Modules.Users.Infrastructure.Persistance;
-using OneBooker.Shared;
-using OneBooker.Shared.ServiceRegistration;
+using OneBooker.SharedKernel;
+using OneBooker.SharedKernel.ServiceRegistration;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

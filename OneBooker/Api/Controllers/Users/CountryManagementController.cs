@@ -4,21 +4,21 @@ using OneBooker.Api.Configurations.Auth;
 using OneBooker.Api.Controllers.Base;
 using OneBooker.Modules.Users.Application.AddressManagement.Countries.Dtos;
 using OneBooker.Modules.Users.InternalApis.AddressManagement.Interfaces;
-using OneBooker.Shared.Responses.ServiceResponse;
+using OneBooker.SharedKernel.Responses.ServiceResponse;
 
 namespace OneBooker.Api.Controllers.Users;
 
 /// <summary>
-/// Manage countries.
+///     Manage countries.
 /// </summary>
 [ApiController]
 [Route("api/v{versioning:apiVersion}/[controller]")]
 [ApiVersion("1.0")]
-[Authorize(policy: AuthConstants.AdminPolicy)]
+[Authorize(AuthConstants.AdminPolicy)]
 public class CountryManagementController(ICountryManagementService countryService) : BaseController
 {
     /// <summary>
-    /// Add a new country.
+    ///     Add a new country.
     /// </summary>
     /// <param name="country">CountryDto object containing new country info.</param>
     /// <returns>Unique identifier of the new country if created successfully.</returns>
@@ -33,7 +33,7 @@ public class CountryManagementController(ICountryManagementService countryServic
     }
 
     /// <summary>
-    /// Get a list of all countries.
+    ///     Get a list of all countries.
     /// </summary>
     /// <returns>A list of CountryDto objects.</returns>
     /// <response code="200">List of countries retrieved successfully.</response>
@@ -45,7 +45,7 @@ public class CountryManagementController(ICountryManagementService countryServic
     }
 
     /// <summary>
-    /// Get a country by its unique identifier.
+    ///     Get a country by its unique identifier.
     /// </summary>
     /// <param name="id">Unique identifier of the country.</param>
     /// <returns>CountryDto object if found.</returns>
@@ -60,7 +60,7 @@ public class CountryManagementController(ICountryManagementService countryServic
     }
 
     /// <summary>
-    /// Update an existing country.
+    ///     Update an existing country.
     /// </summary>
     /// <param name="id">Unique identifier of the country to update.</param>
     /// <param name="country">CountryDto object containing updated info.</param>
@@ -78,7 +78,7 @@ public class CountryManagementController(ICountryManagementService countryServic
     }
 
     /// <summary>
-    /// Delete a country.
+    ///     Delete a country.
     /// </summary>
     /// <param name="id">Unique identifier of the country to delete.</param>
     /// <returns>A boolean value indicating success.</returns>
