@@ -44,7 +44,7 @@ public class UserLoginServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.UsernameOrPasswordIncorrect)).Returns("Invalid credentials");
 
         // Act
-        Response<ILoginResult>? result = await _service.LoginAsync(request);
+        Response<ILoginResult> result = await _service.LoginAsync(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -71,7 +71,7 @@ public class UserLoginServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.UsernameOrPasswordIncorrect)).Returns("Invalid credentials");
 
         // Act
-        Response<ILoginResult>? result = await _service.LoginAsync(request);
+        Response<ILoginResult> result = await _service.LoginAsync(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -100,7 +100,7 @@ public class UserLoginServiceTests
             .ReturnsAsync(mockLoginResult.Object);
 
         // Act
-        Response<ILoginResult>? result = await _service.LoginAsync(request);
+        Response<ILoginResult> result = await _service.LoginAsync(request);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

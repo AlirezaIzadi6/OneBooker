@@ -32,7 +32,7 @@ public class GetCountryServiceTests
         _globalizationMock.Setup(g => g.Localize(It.IsAny<Messages>())).Returns("Not Found {0}");
 
         // Act
-        Response<CountryDto>? result = await _service.GetCountryById(countryId);
+        Response<CountryDto> result = await _service.GetCountryById(countryId);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -53,7 +53,7 @@ public class GetCountryServiceTests
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
 
         // Act
-        Response<CountryDto>? result = await _service.GetCountryById(countryId);
+        Response<CountryDto> result = await _service.GetCountryById(countryId);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

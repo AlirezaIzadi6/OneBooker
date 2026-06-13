@@ -8,7 +8,6 @@ using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
 using OneBooker.SharedKernel.Responses.ServiceResponse;
 using OneBooker.SharedKernel.Services.Globalization;
-using System.Globalization;
 
 namespace OneBooker.Tests.Modules.Users.Application.UserManagement.Registration;
 
@@ -45,7 +44,7 @@ public class UserRegistrationServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        Response<int>? result = await _service.RegisterUser(request);
+        Response<int> result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -68,7 +67,7 @@ public class UserRegistrationServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        Response<int>? result = await _service.RegisterUser(request);
+        Response<int> result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -92,7 +91,7 @@ public class UserRegistrationServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        Response<int>? result = await _service.RegisterUser(request);
+        Response<int> result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -120,7 +119,7 @@ public class UserRegistrationServiceTests
         _userRepoMock.Setup(r => r.CreateUser(It.IsAny<User>())).ReturnsAsync(expectedId);
 
         // Act
-        Response<int>? result = await _service.RegisterUser(request);
+        Response<int> result = await _service.RegisterUser(request);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -130,9 +129,9 @@ public class UserRegistrationServiceTests
                 It.Is<User>(
                     u =>
                         u.Username == request.UserName &&
-                        u.NormalizedUsername == request.UserName.ToUpper(CultureInfo.InvariantCulture) &&
+                        u.NormalizedUsername.Equals(request.UserName, StringComparison.OrdinalIgnoreCase) &&
                         u.Email == request.Email &&
-                        u.NormalizedEmail == request.Email.ToUpper(CultureInfo.InvariantCulture) &&
+                        u.NormalizedEmail.Equals(request.Email, StringComparison.OrdinalIgnoreCase) &&
                         u.PasswordHash == "hashed_pass" &&
                         u.FirstName == request.FirstName &&
                         u.LastName == request.LastName &&

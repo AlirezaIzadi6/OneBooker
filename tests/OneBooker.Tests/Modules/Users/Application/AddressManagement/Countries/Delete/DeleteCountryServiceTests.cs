@@ -52,7 +52,7 @@ public class DeleteCountryServiceTests
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
 
         // Act
-        Response<bool>? result = await _service.DeleteCountry(countryId);
+        Response<bool> result = await _service.DeleteCountry(countryId);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

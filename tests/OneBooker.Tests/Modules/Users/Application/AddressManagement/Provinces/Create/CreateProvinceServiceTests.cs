@@ -37,7 +37,7 @@ public class CreateProvinceServiceTests
         _globalizationMock.Setup(g => g.Localize(It.IsAny<Messages>())).Returns("Duplicate {0}");
 
         // Act
-        Response<int>? result = await _service.CreateProvince(provinceDto);
+        Response<int> result = await _service.CreateProvince(provinceDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -59,7 +59,7 @@ public class CreateProvinceServiceTests
         _repoMock.Setup(r => r.Create(It.IsAny<Province>())).ReturnsAsync(5);
 
         // Act
-        Response<int>? result = await _service.CreateProvince(provinceDto);
+        Response<int> result = await _service.CreateProvince(provinceDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

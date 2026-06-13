@@ -36,7 +36,7 @@ public class CreateCountryServiceTests
         _globalizationMock.Setup(g => g.Localize(It.IsAny<Messages>())).Returns("Duplicate Item {0}");
 
         // Act
-        Response<int>? result = await _service.CreateCountry(countryDto);
+        Response<int> result = await _service.CreateCountry(countryDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -57,7 +57,7 @@ public class CreateCountryServiceTests
         _repoMock.Setup(r => r.Create(It.IsAny<Country>())).ReturnsAsync(1);
 
         // Act
-        Response<int>? result = await _service.CreateCountry(countryDto);
+        Response<int> result = await _service.CreateCountry(countryDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

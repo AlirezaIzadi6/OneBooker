@@ -37,7 +37,7 @@ public class UpdateCountryServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.NotFound)).Returns("{0} not found");
 
         // Act
-        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool> result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -67,7 +67,7 @@ public class UpdateCountryServiceTests
         _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
 
         // Act
-        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool> result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -96,7 +96,7 @@ public class UpdateCountryServiceTests
         _repoMock.Setup(r => r.IsNameDuplicate(countryDto.Name)).ReturnsAsync(false);
 
         // Act
-        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool> result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
@@ -125,7 +125,7 @@ public class UpdateCountryServiceTests
         _repoMock.Setup(r => r.FindById(countryId)).ReturnsAsync(existingCountry);
 
         // Act
-        Response<bool>? result = await _service.UpdateCountry(countryId, countryDto);
+        Response<bool> result = await _service.UpdateCountry(countryId, countryDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();

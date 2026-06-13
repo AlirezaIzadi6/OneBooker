@@ -37,7 +37,7 @@ public class CreateCityServiceTests
         _globalizationMock.Setup(g => g.Localize(It.IsAny<Messages>())).Returns("Duplicate {0}");
 
         // Act
-        Response<int>? result = await _service.CreateCity(cityDto);
+        Response<int> result = await _service.CreateCity(cityDto);
 
         // Assert
         result.IsSuccess.Should().BeFalse();
@@ -59,7 +59,7 @@ public class CreateCityServiceTests
         _repoMock.Setup(r => r.Create(It.IsAny<City>())).ReturnsAsync(10);
 
         // Act
-        Response<int>? result = await _service.CreateCity(cityDto);
+        Response<int> result = await _service.CreateCity(cityDto);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
