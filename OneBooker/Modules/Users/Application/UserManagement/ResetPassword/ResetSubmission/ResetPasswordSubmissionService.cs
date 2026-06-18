@@ -1,7 +1,6 @@
 using OneBooker.Modules.Users.Application.Common.Extentions;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Common.Services;
-using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Application.UserManagement.ResetPassword.ResetRequest;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.SharedKernel.Responses.ServiceResponse;

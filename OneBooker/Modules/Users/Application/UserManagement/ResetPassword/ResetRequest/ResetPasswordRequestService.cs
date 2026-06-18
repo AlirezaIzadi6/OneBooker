@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Options;
 using OneBooker.Modules.Users.Application.Common.Extentions;
 using OneBooker.Modules.Users.Application.Common.Repositories;
-using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.SharedKernel.Responses.ServiceResponse;
 using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
@@ -53,7 +52,7 @@ public class ResetPasswordRequestService(
         string body = string.Format(
             CultureInfo.InvariantCulture,
             EmailBodyFormat,
-            user.FirstName,
+            user.Username,
             settings.ExpirationMinutes,
             resetPasswordUrl);
         var emailRequest = new SendEmailRequest

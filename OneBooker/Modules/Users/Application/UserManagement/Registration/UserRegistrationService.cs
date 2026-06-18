@@ -1,6 +1,6 @@
 using OneBooker.Modules.Users.Application.Common.Messages;
+using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Common.Services;
-using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
 using OneBooker.SharedKernel.Responses.ServiceResponse;
@@ -42,10 +42,7 @@ public class UserRegistrationService(
             Email = request.Email,
             NormalizedEmail = request.Email.ToUpper(CultureInfo.InvariantCulture),
             PasswordHash = hashedPassword,
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            NationalCode = request.NationalCode,
-            Role = UserRole.Normal,
+            Role = UserRole.Customer,
         };
 
         int id = await users.CreateUser(newUser);
@@ -66,12 +63,6 @@ public class UserRegistrationService(
         if (isEmailDuplicate)
         {
             return ValidationResult.Fail(GetDuplicationErrorMessage("email"));
-        }
-
-        bool isNationalCodeDuplicate = await users.IsNationalCodeDuplicate(request.NationalCode);
-        if (isNationalCodeDuplicate)
-        {
-            return ValidationResult.Fail(GetDuplicationErrorMessage("national code"));
         }
 
         return ValidationResult.Success;

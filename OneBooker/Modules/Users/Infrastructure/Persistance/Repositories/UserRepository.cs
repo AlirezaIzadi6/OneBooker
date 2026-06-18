@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using OneBooker.Modules.Users.Application.Contracts.Repositories;
+using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
 
@@ -23,11 +23,6 @@ public class UserRepository(UsersDbContext context) : IUserRepository, IScopedSe
         return await context.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpperInvariant());
     }
 
-    public async Task<User> GetByNationalCodeAsync(string nationalCode)
-    {
-        return await context.Users.FirstOrDefaultAsync(u => u.NationalCode == nationalCode);
-    }
-
     public async Task<bool> IsUsernameDuplicate(string username)
     {
         return await context.Users.AnyAsync(
@@ -37,11 +32,6 @@ public class UserRepository(UsersDbContext context) : IUserRepository, IScopedSe
     public async Task<bool> IsEmailDuplicate(string email)
     {
         return await context.Users.AnyAsync(u => u.NormalizedEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
-    }
-
-    public async Task<bool> IsNationalCodeDuplicate(string nationalCode)
-    {
-        return await context.Users.AnyAsync(u => u.NationalCode == nationalCode);
     }
 
     public async Task<int> CreateUser(User user)

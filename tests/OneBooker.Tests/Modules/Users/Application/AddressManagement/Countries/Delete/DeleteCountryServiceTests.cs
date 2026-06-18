@@ -31,7 +31,7 @@ public class DeleteCountryServiceTests
         _globalizationMock.Setup(g => g.Localize(It.IsAny<Messages>())).Returns("Not Found {0}");
 
         // Act
-        Response<bool>? result = await _service.DeleteCountry(countryId);
+        Response<bool> result = await _service.DeleteCountry(countryId);
 
         // Assert
         result.IsSuccess.Should().BeFalse();

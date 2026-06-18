@@ -1,8 +1,8 @@
 using FluentAssertions;
 using Moq;
 using OneBooker.Modules.Users.Application.Common.Messages;
+using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Common.Services;
-using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Application.UserManagement.Login;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.SharedKernel.Responses.ServiceResponse;

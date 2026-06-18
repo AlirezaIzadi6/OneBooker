@@ -47,6 +47,9 @@ public class CreateCustomerService(
             PhoneNumber = customer.PhoneNumber,
             AddressId = newAddressId,
             UserId = customer.UserId,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            NationalCode = customer.NationalCode,
         };
 
         int createdId = await customers.Create(createdCustomer);

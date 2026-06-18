@@ -43,6 +43,9 @@ public class GetCustomerService(
         {
             Id = customer.Id,
             PhoneNumber = customer.PhoneNumber,
+            FirstName = customer.FirstName,
+            LastName = customer.LastName,
+            NationalCode = customer.NationalCode,
             Address = mapper.Map<AddressDto>(customer.Address),
             UserId = customer.UserId,
         };

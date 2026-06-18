@@ -45,6 +45,9 @@ public class UpdateCustomerService(
         existingCustomer.PhoneNumber = customer.PhoneNumber;
         existingCustomer.Address = mapper.Map<Address>(customer.Address);
         existingCustomer.UserId = customer.UserId;
+        existingCustomer.FirstName = customer.FirstName;
+        existingCustomer.LastName = customer.LastName;
+        existingCustomer.NationalCode = customer.NationalCode;
 
         await customers.Update(existingCustomer);
 

@@ -10,18 +10,6 @@ namespace OneBooker.Modules.Users.Domain.UserManagement.Entities;
 public class User : BaseEntity<int>
 {
     /// <summary>
-    ///     Gets or sets user's first name.
-    /// </summary>
-    [MaxLength(50)]
-    public string FirstName { get; set; }
-
-    /// <summary>
-    ///     Gets or sets user's last name.
-    /// </summary>
-    [MaxLength(50)]
-    public string LastName { get; set; }
-
-    /// <summary>
     ///     Gets or sets user's username.
     /// </summary>
     [Required]
@@ -46,11 +34,6 @@ public class User : BaseEntity<int>
     ///     gets or sets allcap string of email address.
     /// </summary>
     public string NormalizedEmail { get; set; }
-
-    /// <summary>
-    ///     Gets or sets user's national code.
-    /// </summary>
-    public string NationalCode { get; set; }
 
     /// <summary>
     ///     Gets or sets hashed version of user's password.

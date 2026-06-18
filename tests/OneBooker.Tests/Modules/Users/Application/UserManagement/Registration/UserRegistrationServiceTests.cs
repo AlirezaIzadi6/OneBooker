@@ -1,8 +1,8 @@
 using FluentAssertions;
 using Moq;
 using OneBooker.Modules.Users.Application.Common.Messages;
+using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Common.Services;
-using OneBooker.Modules.Users.Application.Contracts.Repositories;
 using OneBooker.Modules.Users.Application.UserManagement.Registration;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Enums;
@@ -37,7 +37,6 @@ public class UserRegistrationServiceTests
         {
             UserName = "TestUser",
             Email = "test@test.com",
-            NationalCode = "1234567890",
             Password = "Password123",
         };
         _userRepoMock.Setup(r => r.IsUsernameDuplicate("TESTUSER")).ReturnsAsync(true);
@@ -59,7 +58,6 @@ public class UserRegistrationServiceTests
         {
             UserName = "testuser",
             Email = "Test@Test.com",
-            NationalCode = "1234567890",
             Password = "Password123",
         };
         _userRepoMock.Setup(r => r.IsUsernameDuplicate(It.IsAny<string>())).ReturnsAsync(false);
@@ -75,30 +73,6 @@ public class UserRegistrationServiceTests
     }
 
     [Fact]
-    public async Task RegisterUser_WhenNationalCodeIsDuplicate_ShouldReturnFail()
-    {
-        // Arrange
-        var request = new RegistrationRequest
-        {
-            UserName = "testuser",
-            Email = "test@test.com",
-            NationalCode = "1234567890",
-            Password = "Password123",
-        };
-        _userRepoMock.Setup(r => r.IsUsernameDuplicate(It.IsAny<string>())).ReturnsAsync(false);
-        _userRepoMock.Setup(r => r.IsEmailDuplicate(It.IsAny<string>())).ReturnsAsync(false);
-        _userRepoMock.Setup(r => r.IsNationalCodeDuplicate(request.NationalCode)).ReturnsAsync(true);
-        _globalizationMock.Setup(g => g.Localize(Messages.DuplicateItem)).Returns("Duplicate {0}");
-
-        // Act
-        Response<int> result = await _service.RegisterUser(request);
-
-        // Assert
-        result.IsSuccess.Should().BeFalse();
-        result.ErrorMessage.Should().Contain("national code");
-    }
-
-    [Fact]
     public async Task RegisterUser_WhenDataIsValid_ShouldReturnSuccess()
     {
         // Arrange
@@ -106,15 +80,11 @@ public class UserRegistrationServiceTests
         {
             UserName = "newuser",
             Email = "new@test.com",
-            NationalCode = "0987654321",
             Password = "SecurePassword123",
-            FirstName = "John",
-            LastName = "Doe",
         };
         int expectedId = 123;
         _userRepoMock.Setup(r => r.IsUsernameDuplicate(It.IsAny<string>())).ReturnsAsync(false);
         _userRepoMock.Setup(r => r.IsEmailDuplicate(It.IsAny<string>())).ReturnsAsync(false);
-        _userRepoMock.Setup(r => r.IsNationalCodeDuplicate(It.IsAny<string>())).ReturnsAsync(false);
         _hashServiceMock.Setup(s => s.Hash(request.Password)).ReturnsAsync("hashed_pass");
         _userRepoMock.Setup(r => r.CreateUser(It.IsAny<User>())).ReturnsAsync(expectedId);
 
@@ -133,10 +103,7 @@ public class UserRegistrationServiceTests
                         u.Email == request.Email &&
                         u.NormalizedEmail.Equals(request.Email, StringComparison.OrdinalIgnoreCase) &&
                         u.PasswordHash == "hashed_pass" &&
-                        u.FirstName == request.FirstName &&
-                        u.LastName == request.LastName &&
-                        u.NationalCode == request.NationalCode &&
-                        u.Role == UserRole.Normal)),
+                        u.Role == UserRole.Customer)),
             Times.Once);
     }
 }
