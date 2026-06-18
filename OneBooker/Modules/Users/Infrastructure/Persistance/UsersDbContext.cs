@@ -13,6 +13,7 @@ public class UsersDbContext(DbContextOptions options) : DbContext(options)
     public DbSet<Country> Countries { get; set; }
     public DbSet<Province> Provinces { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Address> Addresses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

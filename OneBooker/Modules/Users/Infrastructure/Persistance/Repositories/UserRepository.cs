@@ -20,8 +20,7 @@ public class UserRepository(UsersDbContext context) : IUserRepository, IScopedSe
 
     public async Task<User> GetByEmailAsync(string email)
     {
-        return await context.Users.FirstOrDefaultAsync(
-            u => u.NormalizedEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
+        return await context.Users.FirstOrDefaultAsync(u => u.NormalizedEmail == email.ToUpperInvariant());
     }
 
     public async Task<User> GetByNationalCodeAsync(string nationalCode)

@@ -1,3 +1,4 @@
+using OneBooker.Modules.Users.Domain.Addresses.Entities;
 using OneBooker.SharedKernel.Entities;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,4 +12,6 @@ public class Customer : BaseEntity<int>
     public int AddressId { get; set; }
 
     public int UserId { get; set; }
+
+    public Address Address { get; set; }
 }

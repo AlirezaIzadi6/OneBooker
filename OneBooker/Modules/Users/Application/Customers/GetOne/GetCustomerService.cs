@@ -1,3 +1,4 @@
+using MapsterMapper;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Customers.Dtos;
@@ -9,7 +10,10 @@ using System.Globalization;
 
 namespace OneBooker.Modules.Users.Application.Customers.GetOne;
 
-public class GetCustomerService(ICustomerRepository customers, IGlobalizationService globalizationService)
+public class GetCustomerService(
+    ICustomerRepository customers,
+    IGlobalizationService globalizationService,
+    IMapper mapper)
     : IGetCustomerService, IScopedService
 {
     public async Task<Response<CustomerDto>> GetCustomerById(int id)
@@ -39,8 +43,7 @@ public class GetCustomerService(ICustomerRepository customers, IGlobalizationSer
         {
             Id = customer.Id,
             PhoneNumber = customer.PhoneNumber,
-
-            //AddressId = customer.AddressId,
+            Address = mapper.Map<AddressDto>(customer.Address),
             UserId = customer.UserId,
         };
 

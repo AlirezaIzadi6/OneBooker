@@ -6,6 +6,8 @@ public interface IResponse
 
     string ErrorMessage { get; }
 
+    ErrorType? ErrorType { get; }
+
     object Data { get; }
 }
 

@@ -33,10 +33,19 @@ WebApplication app = builder.Build();
 app.UseSwaggerServices();
 app.UseHttpsRedirection();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/reset-password/{token}", async (string token, HttpContext context) =>
+{
+    context.Response.ContentType = "text/html";
+    await context.Response.SendFileAsync(Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "reset-password.html"));
+});
 
 using (IServiceScope scope = app.Services.CreateScope())
 {

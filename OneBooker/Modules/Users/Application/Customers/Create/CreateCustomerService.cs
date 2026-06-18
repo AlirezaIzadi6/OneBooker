@@ -2,6 +2,7 @@ using MapsterMapper;
 using OneBooker.Modules.Users.Application.Common.Messages;
 using OneBooker.Modules.Users.Application.Common.Repositories;
 using OneBooker.Modules.Users.Application.Customers.Dtos;
+using OneBooker.Modules.Users.Domain.Addresses.Entities;
 using OneBooker.Modules.Users.Domain.UserManagement.Entities;
 using OneBooker.SharedKernel.Responses.ServiceResponse;
 using OneBooker.SharedKernel.ServiceRegistration.Interfaces;
@@ -12,6 +13,7 @@ namespace OneBooker.Modules.Users.Application.Customers.Create;
 
 public class CreateCustomerService(
     ICustomerRepository customers,
+    IAddressRepository addresses,
     IGlobalizationService globalizationService,
     IMapper mapper) : ICreateCustomerService, IScopedService
 {
@@ -37,11 +39,13 @@ public class CreateCustomerService(
             return Response<int>.Fail(errorMessage);
         }
 
-        //Address address = new Address
+        Address address = mapper.Map<Address>(customer.Address);
+        int newAddressId = await addresses.Create(address);
 
         var createdCustomer = new Customer
         {
             PhoneNumber = customer.PhoneNumber,
+            AddressId = newAddressId,
             UserId = customer.UserId,
         };
 
